@@ -1,0 +1,107 @@
+/* Register.module.css */
+
+.registerContainer {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--text-dark);
+  margin-bottom: 2.5rem;
+}
+
+.registerOptions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.registerOption {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  height: 100%;
+}
+
+.registerOption:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.optionIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.optionTitle {
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.optionDescription {
+  color: var(--text-medium);
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.registerBtn {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.75rem 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  text-decoration: none;
+  display: inline-block;
+  width: 100%;
+}
+
+.registerBtn:hover {
+  background-color: var(--primary-dark);
+}
+
+.loginRedirect {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+  color: var(--text-medium);
+}
+
+.loginLink {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.loginLink:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .registerOptions {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .registerOption {
+    padding: 1.5rem;
+  }
+}

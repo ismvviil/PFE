@@ -1,0 +1,46 @@
+/* MainLayout.module.css */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Layout pour les utilisateurs connectés */
+.dashboardLayout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 2rem;
+  margin-left: 250px; /* Largeur de la sidebar */
+  transition: margin-left var(--transition-normal);
+  background-color: var(--bg-light);
+  min-height: 100vh; /* Pour s'assurer que le contenu prend toute la hauteur */
+}
+
+/* Layout pour les visiteurs */
+.visitorLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.visitorContent {
+  flex: 1; /* Cela permet au contenu de prendre tout l'espace disponible */
+  padding: 2rem;
+  background-color: var(--bg-light);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .mainContent {
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .visitorContent {
+    padding: 1rem;
+  }
+}

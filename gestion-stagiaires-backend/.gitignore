@@ -1,5 +1,6 @@
 # Environnement virtuel Python
 venv/
+venv_312/
 .env
 
 # Cache Python

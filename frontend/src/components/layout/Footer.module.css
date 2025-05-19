@@ -1,0 +1,203 @@
+/* Footer.module.css - version améliorée pour mobile */
+
+.footer {
+  background-color: #1a1a2e;
+  color: #fff;
+  padding-top: 3rem;
+  padding-bottom: 1.5rem;
+  margin-top: 3rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.branding {
+  flex: 2;
+  min-width: 250px;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+}
+
+.description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ccc;
+  max-width: 400px;
+}
+
+.links {
+  flex: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.linkSection {
+  flex: 1;
+  min-width: 150px;
+}
+
+.linkTitle {
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.linkList li {
+  margin-bottom: 0.75rem;
+}
+
+.link {
+  color: #ccc;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+  font-size: 0.9rem;
+}
+
+.link:hover {
+  color: var(--primary-color);
+}
+
+.bottom {
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.copyright, .signature {
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+/* Footer fixe en bas sur les pages courtes */
+@media (min-height: 100vh) {
+  .footer {
+    margin-top: auto;
+  }
+}
+
+/* Version responsive */
+@media (max-width: 768px) {
+  .content {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  .branding, .links {
+    flex: 1 1 100%;
+  }
+  
+  .links {
+    justify-content: space-between;
+  }
+  
+  .bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+/* Version mobile optimisée */
+@media (max-width: 480px) {
+  .footer {
+    padding-top: 2rem;
+    padding-bottom: 5rem; /* Espace pour la navigation mobile en bas */
+  }
+  
+  .content {
+    gap: 1.5rem;
+  }
+  
+  .branding {
+    text-align: center;
+  }
+  
+  .description {
+    max-width: 100%;
+  }
+  
+  /* Accordéon pour les liens sur mobile */
+  .links {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .linkSection {
+    min-width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .linkTitle {
+    position: relative;
+    cursor: pointer;
+    padding: 1rem 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  /* Ajouter icône + pour indiquer l'accordéon */
+  .linkTitle::after {
+    content: '+';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Style pour quand l'accordéon est ouvert */
+  .linkTitle.open::after {
+    transform: rotate(45deg);
+  }
+  
+  /* Cacher les listes par défaut */
+  .linkList {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding-bottom: 0;
+  }
+  
+  /* Style pour quand la liste est visible */
+  .linkList.visible {
+    max-height: 500px;
+    padding-bottom: 1rem;
+  }
+  
+  .bottom {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+  }
+  
+  .copyright, .signature {
+    font-size: 0.8rem;
+  }
+}

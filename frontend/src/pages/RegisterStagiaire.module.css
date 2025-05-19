@@ -1,0 +1,213 @@
+/* RegisterStagiaire.module.css */
+
+.registerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.formCard {
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-md);
+  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #f9a825; /* Couleur jaune/orange pour les stagiaires */
+  margin-bottom: 1.5rem;
+}
+
+.errorMessage {
+  background-color: #ffebee;
+  color: #d32f2f;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formColumns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.formColumn {
+  flex: 1;
+  min-width: 250px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.25rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-medium);
+}
+
+.input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: var(--border-radius-sm);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: #f9a825;
+  box-shadow: 0 0 0 2px rgba(249, 168, 37, 0.2);
+}
+
+/* Styles pour l'upload de photo */
+.photoUploadContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  height: 100%;
+}
+
+.photoLabel {
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--text-medium);
+  align-self: flex-start;
+}
+
+.photoPreviewContainer {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border: 2px dashed #ddd;
+}
+
+.photoPreview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.photoPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--text-muted);
+}
+
+.photoIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.fileInputContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.fileInput {
+  position: absolute;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  z-index: -1;
+}
+
+.fileInputButton {
+  background-color: #f9a825;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  text-align: center;
+  display: inline-block;
+}
+
+.fileInputButton:hover {
+  background-color: #f57f17;
+}
+
+.submitButton {
+  background-color: #f9a825;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  padding: 0.85rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  margin-top: 1rem;
+}
+
+.submitButton:hover {
+  background-color: #f57f17;
+}
+
+.submitButton:disabled {
+  background-color: #ffd95b;
+  cursor: not-allowed;
+}
+
+.loginRedirect {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-medium);
+}
+
+.loginLink {
+  color: #f9a825;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.loginLink:hover {
+  color: #f57f17;
+  text-decoration: underline;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .formColumns {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .photoUploadContainer {
+    padding-top: 0;
+  }
+  
+  .formCard {
+    padding: 1.5rem;
+  }
+}
