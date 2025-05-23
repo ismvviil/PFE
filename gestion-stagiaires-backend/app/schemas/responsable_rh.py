@@ -15,4 +15,4 @@ class ResponsableRHUpdate(UtilisateurUpdate):
 
 class ResponsableRH(Utilisateur, ResponsableRHBase):
     class Config:
-        orm_mode = True
+        from_attributes = True

@@ -1,5 +1,5 @@
-from pydantic import BaseModel
-from typing import Optional, List
+from pydantic import BaseModel, ConfigDict
+from typing import Optional
 from app.schemas.base import BaseSchema
 
 class EntrepriseBase(BaseModel):
@@ -16,5 +16,4 @@ class EntrepriseUpdate(BaseModel):
     description: Optional[str] = None
 
 class Entreprise(EntrepriseBase, BaseSchema):
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

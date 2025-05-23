@@ -12,7 +12,7 @@ class Entreprise(BaseModel):
     responsables_rh = relationship("ResponsableRH", back_populates="entreprise")
     
     # Offres de stage
-    # offres = relationship("Offre", back_populates="entreprise")
+    offres = relationship("Offre", back_populates="entreprise")
     
     # Historique des stages
     # historiques = relationship("HistoriqueStage", back_populates="entreprise")

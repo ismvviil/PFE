@@ -13,7 +13,7 @@ class Recruteur(Utilisateur):
     entreprise = relationship("Entreprise", back_populates="recruteurs")
     
     # Offres publiées
-    # offres = relationship("Offre", back_populates="recruteur")
+    offres = relationship("Offre", back_populates="recruteur")
     
     # Candidatures gérées
     # candidatures = relationship("Candidature", back_populates="recruteur")

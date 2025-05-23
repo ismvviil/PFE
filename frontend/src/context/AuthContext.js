@@ -1,5 +1,5 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import axios from '../api/axios';
+import React, { createContext, useState, useEffect, useContext } from "react";
+import axios from "../api/axios";
 
 const AuthContext = createContext(null);
 
@@ -10,57 +10,115 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     // Vérifier si un token existe dans localStorage
-    const token = localStorage.getItem('token');
-    
+    const token = localStorage.getItem("token");
+
     if (token) {
       // Récupérer les informations de l'utilisateur à partir du localStorage
-      const userStr = localStorage.getItem('user');
+      const userStr = localStorage.getItem("user");
+      // if (userStr) {
+      //   try {
+      //     const userObj = JSON.parse(userStr);
+      //     setCurrentUser(userObj);
+      //   } catch (err) {
+      //     console.error('Erreur lors de l\'analyse des données utilisateur:', err);
+      //     localStorage.removeItem('user');
+      //     localStorage.removeItem('token');
+      //   }
+      // } else {
+      //   // Si aucune information utilisateur n'est disponible, récupérer depuis l'API
+      //   const getUserInfo = async () => {
+      //     try {
+      //       const response = await axios.get('/users/me', {
+      //         headers: {
+      //           'Authorization': `Bearer ${token}`
+      //         }
+      //       });
+
+      //       const userData = response.data;
+      //       setCurrentUser({
+      //         id: userData.id,
+      //         email: userData.email,
+      //         nom: userData.nom,
+      //         prenom: userData.prenom,
+      //         type: userData.type
+      //       });
+
+      //       // Stocker les informations utilisateur dans localStorage
+      //       localStorage.setItem('user', JSON.stringify({
+      //         id: userData.id,
+      //         email: userData.email,
+      //         nom: userData.nom,
+      //         prenom: userData.prenom,
+      //         type: userData.type
+      //       }));
+      //     } catch (err) {
+      //       console.error('Erreur lors de la récupération des informations utilisateur:', err);
+      //       // Si le token est invalide ou expiré, on le supprime
+      //       localStorage.removeItem('token');
+      //       localStorage.removeItem('user');
+      //     } finally {
+      //       setLoading(false);
+      //     }
+      //   };
+
+      //   getUserInfo();
+      // }
       if (userStr) {
         try {
           const userObj = JSON.parse(userStr);
           setCurrentUser(userObj);
+          setLoading(false); // 👉 ajoute ceci ici
         } catch (err) {
-          console.error('Erreur lors de l\'analyse des données utilisateur:', err);
-          localStorage.removeItem('user');
-          localStorage.removeItem('token');
+          console.error(
+            "Erreur lors de l'analyse des données utilisateur:",
+            err
+          );
+          localStorage.removeItem("user");
+          localStorage.removeItem("token");
+          setLoading(false); // 👉 ajoute aussi ici, sinon ça reste bloqué en cas d'erreur
         }
       } else {
-        // Si aucune information utilisateur n'est disponible, récupérer depuis l'API
         const getUserInfo = async () => {
           try {
-            const response = await axios.get('/users/me', {
+            const response = await axios.get("/users/me", {
               headers: {
-                'Authorization': `Bearer ${token}`
-              }
+                Authorization: `Bearer ${token}`,
+              },
             });
-            
+
             const userData = response.data;
             setCurrentUser({
               id: userData.id,
               email: userData.email,
               nom: userData.nom,
               prenom: userData.prenom,
-              type: userData.type
+              type: userData.type,
+              entreprise_id: userData.entreprise_id, 
             });
-            
-            // Stocker les informations utilisateur dans localStorage
-            localStorage.setItem('user', JSON.stringify({
-              id: userData.id,
-              email: userData.email,
-              nom: userData.nom,
-              prenom: userData.prenom,
-              type: userData.type
-            }));
+
+            localStorage.setItem(
+              "user",
+              JSON.stringify({
+                id: userData.id,
+                email: userData.email,
+                nom: userData.nom,
+                prenom: userData.prenom,
+                type: userData.type,
+                entreprise_id: userData.entreprise_id,
+              })
+            );
           } catch (err) {
-            console.error('Erreur lors de la récupération des informations utilisateur:', err);
-            // Si le token est invalide ou expiré, on le supprime
-            localStorage.removeItem('token');
-            localStorage.removeItem('user');
+            console.error(
+              "Erreur lors de la récupération des informations utilisateur:",
+              err
+            );
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
           } finally {
-            setLoading(false);
+            setLoading(false); // ✅ ici c'est déjà bon
           }
         };
-        
+
         getUserInfo();
       }
     } else {
@@ -71,53 +129,63 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setError(null);
-      
+
       // Utiliser FormData au lieu de JSON pour l'authentification OAuth2
       const formData = new FormData();
-      formData.append('username', email);  // FastAPI OAuth2 attend 'username'
-      formData.append('password', password);
-      
-      const response = await axios.post('/auth/login', formData, {
+      formData.append("username", email); // FastAPI OAuth2 attend 'username'
+      formData.append("password", password);
+
+      const response = await axios.post("/auth/login", formData, {
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
-      
+
       const { access_token } = response.data;
-      
+
       // Stocker le token dans localStorage
-      localStorage.setItem('token', access_token);
-      
+      localStorage.setItem("token", access_token);
+
       // Configurer Axios pour inclure le token dans les en-têtes
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
+      axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+
       // Récupérer les informations de l'utilisateur
-      const userResponse = await axios.get('/users/me');
+      const userResponse = await axios.get("/users/me");
       const userData = userResponse.data;
-      
+
       // Stocker les informations utilisateur
       setCurrentUser({
         id: userData.id,
         email: userData.email,
         nom: userData.nom,
         prenom: userData.prenom,
-        type: userData.type
+        type: userData.type,
+        entreprise_id: userData.entreprise_id, 
+
       });
-      
+
       // Stocker les informations utilisateur dans localStorage
-      localStorage.setItem('user', JSON.stringify({
-        id: userData.id,
-        email: userData.email,
-        nom: userData.nom,
-        prenom: userData.prenom,
-        type: userData.type
-      }));
-      
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          id: userData.id,
+          email: userData.email,
+          nom: userData.nom,
+          prenom: userData.prenom,
+          type: userData.type,
+          entreprise_id: userData.entreprise_id, 
+        })
+      );
+
       return true;
     } catch (err) {
-      console.error('Erreur lors de la connexion:', err);
-      const errorMsg = err.response?.data?.detail || 'Une erreur est survenue lors de la connexion';
-      setError(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
+      console.error("Erreur lors de la connexion:", err);
+      const errorMsg =
+        err.response?.data?.detail ||
+        "Une erreur est survenue lors de la connexion";
+      setError(
+        typeof errorMsg === "object" ? JSON.stringify(errorMsg) : errorMsg
+      );
       return false;
     }
   };
@@ -128,23 +196,27 @@ export const AuthProvider = ({ children }) => {
       const response = await axios.post(`/auth/register/${userType}`, userData);
       return response.data;
     } catch (err) {
-      console.error('Erreur lors de l\'inscription:', err);
-      const errorMsg = err.response?.data?.detail || 'Une erreur est survenue lors de l\'inscription';
-      setError(typeof errorMsg === 'object' ? JSON.stringify(errorMsg) : errorMsg);
+      console.error("Erreur lors de l'inscription:", err);
+      const errorMsg =
+        err.response?.data?.detail ||
+        "Une erreur est survenue lors de l'inscription";
+      setError(
+        typeof errorMsg === "object" ? JSON.stringify(errorMsg) : errorMsg
+      );
       throw err;
     }
   };
 
   const logout = () => {
     // Supprimer le token et les informations utilisateur du localStorage
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
     // Réinitialiser l'état de l'utilisateur
     setCurrentUser(null);
-    
+
     // Supprimer le token des en-têtes Axios
-    delete axios.defaults.headers.common['Authorization'];
+    delete axios.defaults.headers.common["Authorization"];
   };
 
   const value = {
@@ -162,7 +234,9 @@ export const AuthProvider = ({ children }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth doit être utilisé à l\'intérieur d\'un AuthProvider');
+    throw new Error(
+      "useAuth doit être utilisé à l'intérieur d'un AuthProvider"
+    );
   }
   return context;
 };

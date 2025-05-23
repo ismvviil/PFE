@@ -11,10 +11,10 @@ const MainLayout = ({ children }) => {
   return (
     <div className={styles.layout}>
       {currentUser ? (
-        // Layout avec sidebar pour utilisateurs connectés (sans footer)
+        // Layout avec sidebar pour utilisateurs connectés
         <div className={styles.dashboardLayout}>
           <Sidebar />
-          <main className={styles.mainContent}>
+          <main className={`${styles.mainContent} container`}>
             {children}
           </main>
         </div>
@@ -22,7 +22,7 @@ const MainLayout = ({ children }) => {
         // Layout avec navbar et footer pour visiteurs
         <div className={styles.visitorLayout}>
           <TopNavbar />
-          <main className={styles.visitorContent}>
+          <main className={`${styles.visitorContent} container`}>
             {children}
           </main>
           <Footer />
