@@ -9,3 +9,4 @@ from app.schemas.responsable_rh import ResponsableRHBase, ResponsableRHCreate, R
 from app.schemas.stagiaire import StagiaireBase, StagiaireCreate, StagiaireUpdate, Stagiaire
 from app.schemas.entreprise import EntrepriseBase, EntrepriseCreate, EntrepriseUpdate, Entreprise
 from app.schemas.auth import Token, TokenData
+from app.schemas.offre import OffreBase, OffreCreate, OffreUpdate, Offre, OffreSearchResult

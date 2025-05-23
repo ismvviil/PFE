@@ -13,4 +13,4 @@ class StagiaireUpdate(UtilisateurUpdate):
 
 class Stagiaire(Utilisateur, StagiaireBase):
     class Config:
-        orm_mode = True
+        from_attributes = True  # pour permettre model_validate()

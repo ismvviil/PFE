@@ -6,4 +6,5 @@ from app.models.recruteur import Recruteur
 from app.models.stagiaire import Stagiaire
 from app.models.entreprise import Entreprise
 from app.models.message import Message
+from app.models.offre import Offre
 # Importer d'autres modèles selon besoin

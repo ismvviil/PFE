@@ -26,7 +26,7 @@ class Utilisateur(UtilisateurBase, BaseSchema):
     type: str
     
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 # Schéma pour l'authentification
 class UtilisateurAuth(BaseModel):
