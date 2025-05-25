@@ -22,6 +22,13 @@ class Utilisateur(BaseModel):
     # Relation avec les rôles
     roles = relationship("Role", secondary=utilisateur_role, back_populates="utilisateurs")
     
+    # Relations pour les conversations
+    conversations = relationship(
+        "Conversation", 
+        secondary="conversation_participants", 
+        back_populates="participants"
+    )
+    
     __mapper_args__ = {
         'polymorphic_identity': 'utilisateur',
         'polymorphic_on': type

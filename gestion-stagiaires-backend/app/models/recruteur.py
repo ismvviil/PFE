@@ -16,7 +16,7 @@ class Recruteur(Utilisateur):
     offres = relationship("Offre", back_populates="recruteur")
     
     # Candidatures gérées
-    # candidatures = relationship("Candidature", back_populates="recruteur")
+    candidatures = relationship("Candidature", back_populates="recruteur")
     
     __mapper_args__ = {
         'polymorphic_identity': 'recruteur',

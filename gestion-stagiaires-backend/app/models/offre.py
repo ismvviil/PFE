@@ -23,7 +23,7 @@ class Offre(BaseModel):
      # Relations
     entreprise = relationship("Entreprise", back_populates="offres")
     recruteur = relationship("Recruteur", back_populates="offres")
-    # candidatures = relationship("Candidature", back_populates="offre")
+    candidatures = relationship("Candidature", back_populates="offre")
 
     def publier(self):
         """Publier l'offre."""

@@ -63,7 +63,7 @@ const Sidebar = () => {
     } else if (currentUser.type === "stagiaire") {
       links.push(
         { path: "/offres", icon: "🔍", label: "Offres Disponibles" }, // Stagiaires voient les offres disponibles
-        { path: "/mes-candidatures", icon: "📋", label: "Candidatures" },
+        { path: "/mes-candidatures", icon: "📋", label: "Mes andidatures" },
         { path: "/mes-stages", icon: "📚", label: "Mes Stages" }
       );
     }

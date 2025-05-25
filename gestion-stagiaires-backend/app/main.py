@@ -8,23 +8,46 @@ import logging
 # Import all models to ensure they are registered with SQLAlchemy
 from app.models import (
     BaseModel, Utilisateur, Role, ResponsableRH, 
-    Recruteur, Stagiaire, Entreprise, Message
+    Recruteur, Stagiaire, Entreprise, Message , Candidature , Conversation
 )
+
+# Dans votre main.py - Ajoutez du debug
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     openapi_url=f"{settings.API_V1_STR}/openapi.json"
 )
 
-# Set all CORS enabled origins
-if settings.BACKEND_CORS_ORIGINS:
+# DEBUG: Vérifiez ce qui est chargé
+print(f"DEBUG - PROJECT_NAME: {settings.PROJECT_NAME}")
+print(f"DEBUG - BACKEND_CORS_ORIGINS: {settings.BACKEND_CORS_ORIGINS}")
+print(f"DEBUG - Type de BACKEND_CORS_ORIGINS: {type(settings.BACKEND_CORS_ORIGINS)}")
+
+# Configuration CORS avec vérification
+try:
+    if settings.BACKEND_CORS_ORIGINS:
+        print("✅ Configuration CORS avec settings...")
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=settings.BACKEND_CORS_ORIGINS,  # Pas besoin de str() si c'est déjà une liste
+            allow_credentials=True,
+            allow_methods=["*"],
+            allow_headers=["*"],
+        )
+        print(f"✅ CORS configuré pour: {settings.BACKEND_CORS_ORIGINS}")
+    else:
+        print("⚠️ BACKEND_CORS_ORIGINS est vide!")
+except Exception as e:
+    print(f"❌ Erreur CORS: {e}")
+    # Configuration CORS de secours
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=[str(origin) for origin in settings.BACKEND_CORS_ORIGINS],
+        allow_origins=["http://localhost:3000"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+    print("🔧 CORS de secours activé")
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 

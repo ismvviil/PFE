@@ -16,6 +16,10 @@ import OffreForm from "./components/offres/OffreForm.js";
 import PrivateRoute from "./components/common/PrivateRoute";
 import OffresList from "./components/offres/OffresList.jsx";
 import OffreDetail from "./components/offres/OffreDetail.jsx";
+import StagiaireRoute from "./components/common/StagiaireRoute.js";
+import CandidatureForm from "./components/candidatures/CandidatureForm.js";
+import MesCandidatures from "./components/candidatures/MesCandidatures.js";
+import CandidaturesRecues from "./components/candidatures/CandidaturesRecues.jsx";
 function App() {
   return (
     <AuthProvider>
@@ -69,6 +73,32 @@ function App() {
                   <PrivateRoute>
                     <OffresList />
                   </PrivateRoute>
+                }
+              />
+              <Route
+                path="/candidatures-recues"
+                element={
+                  <RecruteurRoute>
+                    <CandidaturesRecues />
+                  </RecruteurRoute>
+                }
+              />
+
+              {/* Routes protégées pour les stagiaires */}
+              <Route
+                path="/offres/:offreId/postuler"
+                element={
+                  <StagiaireRoute>
+                    <CandidatureForm />
+                  </StagiaireRoute>
+                }
+              />
+              <Route
+                path="/mes-candidatures"
+                element={
+                  <StagiaireRoute>
+                    <MesCandidatures />
+                  </StagiaireRoute>
                 }
               />
             </Routes>

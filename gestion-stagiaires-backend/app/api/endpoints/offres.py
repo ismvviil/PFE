@@ -7,6 +7,7 @@ from app.api.deps import get_current_user, get_db, get_user_by_type
 from app.models.offre import Offre
 from app.models.utilisateur import Utilisateur
 from app.models.recruteur import Recruteur
+from app.models.candidature import Candidature
 from app.schemas.offre import OffreCreate, OffreUpdate, Offre as OffreSchema, OffreSearchResult
 
 router = APIRouter()
@@ -167,6 +168,29 @@ def update_offre(
 #     db.delete(offre)
 #     db.commit()
 #     return offre
+# @router.delete("/{offre_id}", response_model=OffreSchema)
+# def delete_offre(
+#     *,
+#     db: Session = Depends(get_db),
+#     offre_id: int,
+#     current_user: Utilisateur = Depends(get_user_by_type("recruteur"))
+# ):
+#     offre = db.query(Offre).filter(Offre.id == offre_id).first()
+#     if not offre:
+#         raise HTTPException(status_code=404, detail="Offre non trouvée")
+    
+#     if offre.recruteur_id != current_user.id:
+#         raise HTTPException(status_code=403, detail="Vous n'êtes pas autorisé à supprimer cette offre")
+    
+#     # Charger entreprise pour éviter l'erreur de session détachée
+#     _ = offre.entreprise  # force SQLAlchemy à charger entreprise avant suppression
+    
+#     # Créer une copie Pydantic de l'objet avant suppression
+#     response_data = OffreSchema.from_orm(offre)
+
+#     db.delete(offre)
+#     db.commit()
+#     return response_data
 @router.delete("/{offre_id}", response_model=OffreSchema)
 def delete_offre(
     *,
@@ -177,19 +201,26 @@ def delete_offre(
     offre = db.query(Offre).filter(Offre.id == offre_id).first()
     if not offre:
         raise HTTPException(status_code=404, detail="Offre non trouvée")
-    
+
     if offre.recruteur_id != current_user.id:
         raise HTTPException(status_code=403, detail="Vous n'êtes pas autorisé à supprimer cette offre")
-    
-    # Charger entreprise pour éviter l'erreur de session détachée
-    _ = offre.entreprise  # force SQLAlchemy à charger entreprise avant suppression
-    
-    # Créer une copie Pydantic de l'objet avant suppression
-    response_data = OffreSchema.from_orm(offre)
 
-    db.delete(offre)
-    db.commit()
-    return response_data
+    # Vérifie s'il y a des candidatures liées à cette offre
+    candidatures = db.query(Candidature).filter(Candidature.offre_id == offre.id).count()
+
+    if candidatures > 0:
+        # Soft delete
+        offre.est_active = False
+        db.commit()
+        return OffreSchema.from_orm(offre)
+    else:
+        # Suppression physique
+        _ = offre.entreprise  # charger entreprise pour éviter DetachedInstanceError
+        response_data = OffreSchema.from_orm(offre)
+        db.delete(offre)
+        db.commit()
+        return response_data
+
 
 @router.put("/{offre_id}/publier", response_model=OffreSchema)
 def publier_offre(

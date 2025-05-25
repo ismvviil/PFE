@@ -9,7 +9,7 @@ class Stagiaire(Utilisateur):
     photo = Column(String, nullable=True)  # Chemin vers la photo ou URL
     
     # Candidatures soumises
-    # candidatures = relationship("Candidature", back_populates="stagiaire")
+    candidatures = relationship("Candidature", back_populates="stagiaire")
     
     # Missions suivies
     # missions = relationship("Mission", back_populates="stagiaire")

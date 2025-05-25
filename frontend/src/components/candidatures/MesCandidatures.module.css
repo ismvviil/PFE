@@ -1,0 +1,525 @@
+/* MesCandidatures.module.css */
+
+.candidaturesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  font-size: 1.125rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.pageTitle {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.pageTitle::before {
+  content: "📋";
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  border-radius: 12px;
+  border: 1px solid #bfdbfe;
+}
+
+.searchOffresButton {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.searchOffresButton::before {
+  content: "🔍";
+  font-size: 1rem;
+}
+
+.searchOffresButton:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Messages */
+.errorMessage {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  color: #dc2626;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border-left: 4px solid #dc2626;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+.successMessage {
+  background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+  color: #16a34a;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border-left: 4px solid #16a34a;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Statistiques */
+.statistiques {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+}
+
+.statNumber {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Styles spécifiques pour chaque type de stat */
+.statCard:nth-child(1) .statNumber {
+  color: #3b82f6;
+}
+
+.statCard:nth-child(2) .statNumber {
+  color: #f59e0b;
+}
+
+.statCard:nth-child(3) .statNumber {
+  color: #3b82f6;
+}
+
+.statCard:nth-child(4) .statNumber {
+  color: #10b981;
+}
+
+.statCard:nth-child(5) .statNumber {
+  color: #ef4444;
+}
+
+/* Filtres */
+.filtres {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filtreGroup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.filtreLabel {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.filtreSelect {
+  padding: 0.625rem 1rem;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #ffffff;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.filtreSelect:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.filtreSelect:hover {
+  border-color: #9ca3af;
+}
+
+.resultCount {
+  color: #6b7280;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #cbd5e1;
+  white-space: nowrap;
+}
+
+/* Liste des candidatures */
+.candidaturesList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* États vides */
+.noCandidatures {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.emptyCandidatures,
+.noFilterResults {
+  text-align: center;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e5e7eb;
+  max-width: 500px;
+}
+
+.emptyCandidatures h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.emptyCandidatures h3::before {
+  content: "📝";
+  font-size: 2rem;
+}
+
+.emptyCandidatures p,
+.noFilterResults p {
+  color: #6b7280;
+  font-size: 1.125rem;
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.exploreButton,
+.resetFilterButton {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.875rem 2rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.exploreButton::before {
+  content: "🚀";
+  font-size: 1rem;
+}
+
+.resetFilterButton::before {
+  content: "🔄";
+  font-size: 1rem;
+}
+
+.exploreButton:hover,
+.resetFilterButton:hover {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .candidaturesContainer {
+    padding: 1.5rem;
+  }
+
+  .statistiques {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .filtres {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .filtreGroup {
+    justify-content: space-between;
+  }
+
+  .resultCount {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .candidaturesContainer {
+    padding: 1rem;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+
+  .pageTitle {
+    font-size: 1.75rem;
+    justify-content: center;
+  }
+
+  .searchOffresButton {
+    align-self: center;
+    width: fit-content;
+    justify-content: center;
+  }
+
+  .statistiques {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .statCard {
+    padding: 1.25rem;
+  }
+
+  .statNumber {
+    font-size: 1.75rem;
+  }
+
+  .filtres {
+    padding: 1.25rem;
+  }
+
+  .filtreGroup {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filtreSelect {
+    min-width: auto;
+  }
+
+  .emptyCandidatures,
+  .noFilterResults {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .candidaturesContainer {
+    padding: 0.75rem;
+  }
+
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+
+  .searchOffresButton {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+
+  .statistiques {
+    grid-template-columns: 1fr;
+  }
+
+  .statCard {
+    padding: 1rem;
+  }
+
+  .statNumber {
+    font-size: 1.5rem;
+  }
+
+  .filtres {
+    padding: 1rem;
+  }
+
+  .emptyCandidatures h3 {
+    font-size: 1.25rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .emptyCandidatures p,
+  .noFilterResults p {
+    font-size: 1rem;
+  }
+
+  .exploreButton,
+  .resetFilterButton {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* États focus pour l'accessibilité */
+.searchOffresButton:focus-visible,
+.filtreSelect:focus-visible,
+.exploreButton:focus-visible,
+.resetFilterButton:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Animation d'entrée */
+.candidaturesContainer {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation pour les statistiques */
+.statCard {
+  animation: fadeInScale 0.5s ease-out;
+  animation-fill-mode: both;
+}
+
+.statCard:nth-child(1) { animation-delay: 0.1s; }
+.statCard:nth-child(2) { animation-delay: 0.2s; }
+.statCard:nth-child(3) { animation-delay: 0.3s; }
+.statCard:nth-child(4) { animation-delay: 0.4s; }
+.statCard:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Effet de brillance sur les cartes de statistiques */
+.statCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.statCard:hover::after {
+  left: 100%;
+}
+
+/* Amélioration des contrastes */
+.filtreLabel,
+.statLabel {
+  font-weight: 700;
+}

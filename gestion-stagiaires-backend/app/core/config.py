@@ -1,14 +1,17 @@
-from pydantic_settings import BaseSettings
+# Dans votre fichier app/core/config.py
+
 import os
+from typing import List, Union
+from pydantic import field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict  # Import corrigé
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement depuis .env
 load_dotenv()
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Gestion des Stagiaires API"
     API_V1_STR: str = "/api/v1"
-
+    
     POSTGRES_SERVER: str = "localhost"
     POSTGRES_USER: str = "postgres"
     POSTGRES_PASSWORD: str = "0000"
@@ -17,17 +20,27 @@ class Settings(BaseSettings):
     SECRET_KEY: str = os.getenv("SECRET_KEY", "default_secret_key")
     ALGORITHM: str = os.getenv("ALGORITHM", "HS256")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "30"))
-
-    BACKEND_CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8000"]
+    
+    # CORS Configuration
+    BACKEND_CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8000"]
     
     # Ajouter cette ligne pour gérer DATABASE_URL
     database_url: str = None
     
-    # Configuration pour accepter tous les champs
-    model_config = {
-        "env_file": ".env",
-        "extra": "allow"  # Permet des champs supplémentaires non définis dans le modèle
-    }
+    # Configuration pour Pydantic v2
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="allow"
+    )
+    
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
+        if isinstance(v, str) and not v.startswith("["):
+            return [i.strip() for i in v.split(",")]
+        elif isinstance(v, (list, str)):
+            return v
+        raise ValueError(v)
 
 settings = Settings()
 

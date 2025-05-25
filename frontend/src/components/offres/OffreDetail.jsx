@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-import { getOffreById, publierOffre, fermerOffre, deleteOffre } from '../../services/offreService';
-import styles from './OffreDetail.module.css';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import {
+  getOffreById,
+  publierOffre,
+  fermerOffre,
+  deleteOffre,
+} from "../../services/offreService";
+import styles from "./OffreDetail.module.css";
 
 const OffreDetail = () => {
   const { offreId } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useAuth();
-  
+
   const [offre, setOffre] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [actionLoading, setActionLoading] = useState(false);
 
   useEffect(() => {
     const fetchOffre = async () => {
       try {
         setLoading(true);
-        setError('');
+        setError("");
         const data = await getOffreById(offreId);
-        console.log('Données de loffre : ' , data);
+        console.log("Données de loffre : ", data);
         setOffre(data);
       } catch (err) {
-        setError(err.response?.data?.detail || 'Erreur lors de la récupération de l\'offre');
+        setError(
+          err.response?.data?.detail ||
+            "Erreur lors de la récupération de l'offre"
+        );
         console.error(err);
       } finally {
         setLoading(false);
@@ -38,17 +46,17 @@ const OffreDetail = () => {
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("fr-FR", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
   const formatRemuneration = (montant) => {
-    if (!montant) return 'Non rémunéré';
-    return `${montant.toLocaleString('fr-FR')}€/mois`;
+    if (!montant) return "Non rémunéré";
+    return `${montant.toLocaleString("fr-FR")}€/mois`;
   };
 
   const calculateDuration = (dateDebut, dateFin) => {
@@ -58,7 +66,7 @@ const OffreDetail = () => {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const diffWeeks = Math.floor(diffDays / 7);
     const diffMonths = Math.floor(diffDays / 30);
-    
+
     if (diffMonths > 0) {
       return `${diffMonths} mois`;
     } else if (diffWeeks > 0) {
@@ -68,20 +76,23 @@ const OffreDetail = () => {
     }
   };
 
-  const canModify = currentUser?.type === 'recruteur' && offre?.recruteur_id === currentUser.id;
-  const canApply = currentUser?.type === 'stagiaire' && offre?.est_active;
+  const canModify =
+    currentUser?.type === "recruteur" && offre?.recruteur_id === currentUser.id;
+  const canApply = currentUser?.type === "stagiaire" && offre?.est_active;
 
   const handlePublier = async () => {
     try {
       setActionLoading(true);
-      setError('');
+      setError("");
       await publierOffre(offreId);
-      setSuccess('Offre publiée avec succès');
-      setOffre(prev => ({ ...prev, est_active: true }));
-      setTimeout(() => setSuccess(''), 3000);
+      setSuccess("Offre publiée avec succès");
+      setOffre((prev) => ({ ...prev, est_active: true }));
+      setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Erreur lors de la publication de l\'offre');
-      setTimeout(() => setError(''), 5000);
+      setError(
+        err.response?.data?.detail || "Erreur lors de la publication de l'offre"
+      );
+      setTimeout(() => setError(""), 5000);
     } finally {
       setActionLoading(false);
     }
@@ -90,42 +101,51 @@ const OffreDetail = () => {
   const handleFermer = async () => {
     try {
       setActionLoading(true);
-      setError('');
+      setError("");
       await fermerOffre(offreId);
-      setSuccess('Offre fermée avec succès');
-      setOffre(prev => ({ ...prev, est_active: false }));
-      setTimeout(() => setSuccess(''), 3000);
+      setSuccess("Offre fermée avec succès");
+      setOffre((prev) => ({ ...prev, est_active: false }));
+      setTimeout(() => setSuccess(""), 3000);
     } catch (err) {
-      setError(err.response?.data?.detail || 'Erreur lors de la fermeture de l\'offre');
-      setTimeout(() => setError(''), 5000);
+      setError(
+        err.response?.data?.detail || "Erreur lors de la fermeture de l'offre"
+      );
+      setTimeout(() => setError(""), 5000);
     } finally {
       setActionLoading(false);
     }
   };
 
   const handleSupprimer = async () => {
-    if (window.confirm('Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible.')) {
+    if (
+      window.confirm(
+        "Êtes-vous sûr de vouloir supprimer cette offre ? Cette action est irréversible."
+      )
+    ) {
       try {
         setActionLoading(true);
-        setError('');
+        setError("");
         await deleteOffre(offreId);
-        setSuccess('Offre supprimée avec succès');
+        setSuccess("Offre supprimée avec succès");
         setTimeout(() => {
-          navigate('/offres');
+          navigate("/offres");
         }, 2000);
       } catch (err) {
-        setError(err.response?.data?.detail || 'Erreur lors de la suppression de l\'offre');
-        setTimeout(() => setError(''), 5000);
+        setError(
+          err.response?.data?.detail ||
+            "Erreur lors de la suppression de l'offre"
+        );
+        setTimeout(() => setError(""), 5000);
       } finally {
         setActionLoading(false);
       }
     }
   };
 
-  const handlePostuler = () => {
-    // Cette fonction sera implémentée dans une phase ultérieure
-    alert('Fonctionnalité de candidature à venir dans une prochaine phase');
-  };
+//   const handlePostuler = () => {
+//     // Cette fonction sera implémentée dans une phase ultérieure
+//     alert("Fonctionnalité de candidature à venir dans une prochaine phase");
+//   };
 
   if (loading) {
     return (
@@ -151,7 +171,9 @@ const OffreDetail = () => {
     return (
       <div className={styles.notFound}>
         <h2>Offre non trouvée</h2>
-        <p>L'offre que vous recherchez n'existe pas ou n'est plus disponible.</p>
+        <p>
+          L'offre que vous recherchez n'existe pas ou n'est plus disponible.
+        </p>
         <Link to="/offres" className={styles.backButton}>
           Retour à la liste des offres
         </Link>
@@ -163,7 +185,9 @@ const OffreDetail = () => {
     <div className={styles.offreDetailContainer}>
       {/* Breadcrumb */}
       <nav className={styles.breadcrumb}>
-        <Link to="/offres" className={styles.breadcrumbLink}>Offres</Link>
+        <Link to="/offres" className={styles.breadcrumbLink}>
+          Offres
+        </Link>
         <span className={styles.breadcrumbSeparator}>/</span>
         <span className={styles.breadcrumbCurrent}>{offre.titre}</span>
       </nav>
@@ -178,18 +202,26 @@ const OffreDetail = () => {
           <div className={styles.titleSection}>
             <h1 className={styles.offreTitle}>{offre.titre}</h1>
             <div className={styles.offreMetadata}>
-              <span className={styles.company}>{offre.entreprise?.raison_social || 'Entreprise'}</span>
+              <span className={styles.company}>
+                {offre.entreprise?.raison_social || "Entreprise"}
+              </span>
               <span className={styles.separator}>•</span>
-              <span className={styles.location}>{offre.localisation || 'Localisation non précisée'}</span>
+              <span className={styles.location}>
+                {offre.localisation || "Localisation non précisée"}
+              </span>
               <span className={styles.separator}>•</span>
-              <span className={`${styles.status} ${offre.est_active ? styles.active : styles.inactive}`}>
-                {offre.est_active ? 'Active' : 'Fermée'}
+              <span
+                className={`${styles.status} ${
+                  offre.est_active ? styles.active : styles.inactive
+                }`}
+              >
+                {offre.est_active ? "Active" : "Fermée"}
               </span>
             </div>
           </div>
-          
+
           <div className={styles.actionButtons}>
-            {canApply && (
+            {/* {canApply && (
               <button 
                 onClick={handlePostuler}
                 className={styles.applyButton}
@@ -197,24 +229,32 @@ const OffreDetail = () => {
               >
                 Postuler à cette offre
               </button>
+            )} */}
+            {canApply && (
+              <Link
+                to={`/offres/${offre.id}/postuler`}
+                className={styles.applyButton}
+              >
+                Postuler à cette offre
+              </Link>
             )}
-            
+
             {canModify && (
               <div className={styles.manageButtons}>
-                <Link 
-                  to={`/offres/modifier/${offre.id}`} 
+                <Link
+                  to={`/offres/modifier/${offre.id}`}
                   className={styles.editButton}
                 >
                   Modifier
                 </Link>
-                
+
                 {offre.est_active ? (
                   <button
                     onClick={handleFermer}
                     className={styles.closeButton}
                     disabled={actionLoading}
                   >
-                    {actionLoading ? 'Fermeture...' : 'Fermer l\'offre'}
+                    {actionLoading ? "Fermeture..." : "Fermer l'offre"}
                   </button>
                 ) : (
                   <button
@@ -222,16 +262,16 @@ const OffreDetail = () => {
                     className={styles.publishButton}
                     disabled={actionLoading}
                   >
-                    {actionLoading ? 'Publication...' : 'Publier l\'offre'}
+                    {actionLoading ? "Publication..." : "Publier l'offre"}
                   </button>
                 )}
-                
+
                 <button
                   onClick={handleSupprimer}
                   className={styles.deleteButton}
                   disabled={actionLoading}
                 >
-                  {actionLoading ? 'Suppression...' : 'Supprimer'}
+                  {actionLoading ? "Suppression..." : "Supprimer"}
                 </button>
               </div>
             )}
@@ -253,7 +293,7 @@ const OffreDetail = () => {
                   <span className={styles.infoValue}>{offre.type_stage}</span>
                 </div>
               </div>
-              
+
               <div className={styles.infoCard}>
                 <div className={styles.infoIcon}>🏢</div>
                 <div className={styles.infoContent}>
@@ -261,15 +301,17 @@ const OffreDetail = () => {
                   <span className={styles.infoValue}>{offre.secteur}</span>
                 </div>
               </div>
-              
+
               <div className={styles.infoCard}>
                 <div className={styles.infoIcon}>💰</div>
                 <div className={styles.infoContent}>
                   <span className={styles.infoLabel}>Rémunération</span>
-                  <span className={styles.infoValue}>{formatRemuneration(offre.remuneration)}</span>
+                  <span className={styles.infoValue}>
+                    {formatRemuneration(offre.remuneration)}
+                  </span>
                 </div>
               </div>
-              
+
               <div className={styles.infoCard}>
                 <div className={styles.infoIcon}>📅</div>
                 <div className={styles.infoContent}>
@@ -286,7 +328,7 @@ const OffreDetail = () => {
           <section className={styles.description}>
             <h2 className={styles.sectionTitle}>Description du stage</h2>
             <div className={styles.descriptionContent}>
-              {offre.description.split('\n').map((paragraph, index) => (
+              {offre.description.split("\n").map((paragraph, index) => (
                 <p key={index} className={styles.paragraph}>
                   {paragraph}
                 </p>
@@ -299,11 +341,13 @@ const OffreDetail = () => {
             <section className={styles.competences}>
               <h2 className={styles.sectionTitle}>Compétences requises</h2>
               <div className={styles.competencesContent}>
-                {offre.competences_requises.split(',').map((competence, index) => (
-                  <span key={index} className={styles.competenceTag}>
-                    {competence.trim()}
-                  </span>
-                ))}
+                {offre.competences_requises
+                  .split(",")
+                  .map((competence, index) => (
+                    <span key={index} className={styles.competenceTag}>
+                      {competence.trim()}
+                    </span>
+                  ))}
               </div>
             </section>
           )}
@@ -317,11 +361,15 @@ const OffreDetail = () => {
             <div className={styles.dateInfo}>
               <div className={styles.dateItem}>
                 <span className={styles.dateLabel}>Début</span>
-                <span className={styles.dateValue}>{formatDate(offre.date_debut)}</span>
+                <span className={styles.dateValue}>
+                  {formatDate(offre.date_debut)}
+                </span>
               </div>
               <div className={styles.dateItem}>
                 <span className={styles.dateLabel}>Fin</span>
-                <span className={styles.dateValue}>{formatDate(offre.date_fin)}</span>
+                <span className={styles.dateValue}>
+                  {formatDate(offre.date_fin)}
+                </span>
               </div>
             </div>
           </div>
@@ -331,10 +379,16 @@ const OffreDetail = () => {
             <div className={styles.sidebarCard}>
               <h3 className={styles.sidebarTitle}>À propos de l'entreprise</h3>
               <div className={styles.companyInfo}>
-                <h4 className={styles.companyName}>{offre.entreprise.raison_social}</h4>
-                <p className={styles.companySector}>Secteur : {offre.entreprise.secteur_activite}</p>
+                <h4 className={styles.companyName}>
+                  {offre.entreprise.raison_social}
+                </h4>
+                <p className={styles.companySector}>
+                  Secteur : {offre.entreprise.secteur_activite}
+                </p>
                 {offre.entreprise.description && (
-                  <p className={styles.companyDescription}>{offre.entreprise.description}</p>
+                  <p className={styles.companyDescription}>
+                    {offre.entreprise.description}
+                  </p>
                 )}
               </div>
             </div>
@@ -346,7 +400,9 @@ const OffreDetail = () => {
               <h3 className={styles.sidebarTitle}>Localisation</h3>
               <div className={styles.locationInfo}>
                 <div className={styles.locationIcon}>📍</div>
-                <span className={styles.locationText}>{offre.localisation}</span>
+                <span className={styles.locationText}>
+                  {offre.localisation}
+                </span>
               </div>
             </div>
           )}
@@ -358,14 +414,14 @@ const OffreDetail = () => {
               <div className={styles.infoItem}>
                 <span className={styles.infoLabel}>Publié le</span>
                 <span className={styles.infoValue}>
-                  {new Date(offre.created_at).toLocaleDateString('fr-FR')}
+                  {new Date(offre.created_at).toLocaleDateString("fr-FR")}
                 </span>
               </div>
               {offre.updated_at && offre.updated_at !== offre.created_at && (
                 <div className={styles.infoItem}>
                   <span className={styles.infoLabel}>Mis à jour le</span>
                   <span className={styles.infoValue}>
-                    {new Date(offre.updated_at).toLocaleDateString('fr-FR')}
+                    {new Date(offre.updated_at).toLocaleDateString("fr-FR")}
                   </span>
                 </div>
               )}
@@ -377,19 +433,25 @@ const OffreDetail = () => {
             <div className={styles.sidebarCard}>
               <h3 className={styles.sidebarTitle}>Actions</h3>
               <div className={styles.quickActions}>
-                <button 
+                {/* <button
                   onClick={handlePostuler}
                   className={styles.primaryAction}
                   disabled={actionLoading}
                 >
                   Postuler maintenant
-                </button>
+                </button> */}
+                {canApply && (
+              <Link
+                to={`/offres/${offre.id}/postuler`}
+                className={styles.primaryAction}
+              >
+                Postuler à cette offre
+              </Link>
+            )}
                 <button className={styles.secondaryAction}>
                   Sauvegarder l'offre
                 </button>
-                <button className={styles.secondaryAction}>
-                  Partager
-                </button>
+                <button className={styles.secondaryAction}>Partager</button>
               </div>
             </div>
           )}
@@ -401,11 +463,11 @@ const OffreDetail = () => {
         <Link to="/offres" className={styles.backToList}>
           ← Retour à la liste des offres
         </Link>
-        
+
         {canModify && (
           <div className={styles.bottomActions}>
-            <Link 
-              to={`/offres/modifier/${offre.id}`} 
+            <Link
+              to={`/offres/modifier/${offre.id}`}
               className={styles.editButton}
             >
               Modifier cette offre
