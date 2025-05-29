@@ -5,19 +5,18 @@ from app.models.base import BaseModel
 
 class Message(BaseModel):
     """Modèle pour les messages dans les conversations."""
+    
     contenu = Column(Text, nullable=False)
+    date = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
     lu = Column(Boolean, default=False)
     type_message = Column(String, default="texte")  # "texte", "fichier", "image"
-    fichier_url = Column(String, nullable=True)  # Pour les pièces jointes
+    fichier_url = Column(String, nullable=True)
     
     # Clés étrangères
     emetteur_id = Column(Integer, ForeignKey("utilisateur.id"), nullable=False)
-    destinataire_id = Column(Integer, ForeignKey("utilisateur.id"), nullable=True)  # Null pour messages de groupe
+    destinataire_id = Column(Integer, ForeignKey("utilisateur.id"), nullable=False)  
     conversation_id = Column(Integer, ForeignKey("conversation.id"), nullable=False)
 
-    # Relations
-    emetteur = relationship("Utilisateur", foreign_keys=[emetteur_id], back_populates="messages_envoyes")
-    destinataire = relationship("Utilisateur", foreign_keys=[destinataire_id], back_populates="messages_recus")
 
     # Relations
     emetteur = relationship("Utilisateur", foreign_keys=[emetteur_id], back_populates="messages_envoyes")

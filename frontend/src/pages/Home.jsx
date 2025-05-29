@@ -1,98 +1,982 @@
-// import React from 'react';
+// // // import React from 'react';
+// // // import styles from './Home.module.css';
+
+// // // const Home = () => {
+// // //   return (
+// // //     <div className={styles.homeContainer}>
+// // //       <div className={styles.heroSection}>
+// // //         <h1 className={styles.title}>Bienvenue sur la Plateforme de Gestion des Stagiaires</h1>
+// // //         <p className={styles.description}>
+// // //           Cette plateforme permet aux entreprises de gérer efficacement leurs stagiaires,
+// // //           depuis la publication des offres de stage jusqu'à l'évaluation finale.
+// // //         </p>
+// // //         <div className={styles.buttonGroup}>
+// // //           <a href="/register" className={styles.primaryBtn}>S'inscrire</a>
+// // //           <a href="/login" className={styles.secondaryBtn}>Se connecter</a>
+// // //         </div>
+// // //       </div>
+      
+// // //       <div className={styles.featuresSection}>
+// // //         <h2 className={styles.sectionTitle}>Fonctionnalités principales</h2>
+// // //         <div className={styles.featuresGrid}>
+// // //           <div className={styles.featureCard}>
+// // //             <div className={styles.featureIcon}>📝</div>
+// // //             <h3 className={styles.featureTitle}>Gestion des offres</h3>
+// // //             <p className={styles.featureDescription}>Publiez et gérez facilement vos offres de stage</p>
+// // //           </div>
+          
+// // //           <div className={styles.featureCard}>
+// // //             <div className={styles.featureIcon}>👥</div>
+// // //             <h3 className={styles.featureTitle}>Suivi des candidatures</h3>
+// // //             <p className={styles.featureDescription}>Suivez et analysez les candidatures reçues</p>
+// // //           </div>
+          
+// // //           <div className={styles.featureCard}>
+// // //             <div className={styles.featureIcon}>📊</div>
+// // //             <h3 className={styles.featureTitle}>Évaluation des stagiaires</h3>
+// // //             <p className={styles.featureDescription}>Évaluez et donnez du feedback sur les performances</p>
+// // //           </div>
+          
+// // //           <div className={styles.featureCard}>
+// // //             <div className={styles.featureIcon}>🤖</div>
+// // //             <h3 className={styles.featureTitle}>IA pour le recrutement</h3>
+// // //             <p className={styles.featureDescription}>Utilisez l'IA pour trouver les meilleurs profils</p>
+// // //           </div>
+// // //         </div>
+// // //       </div>
+// // //     </div>
+// // //   );
+// // // };
+
+// // // export default Home;
+// // import React from 'react';
+// // import { FaClipboardList, FaPeopleArrows, FaChartLine, FaRobot } from 'react-icons/fa';
+// // import styles from './Home.module.css';
+
+// // const Home = () => {
+// //   return (
+// //     <div className={styles.homeContainer}>
+// //       <div className={styles.heroSection}>
+// //         <h1 className={styles.title}>Bienvenue sur la Plateforme de Gestion des Stagiaires</h1>
+// //         <p className={styles.description}>
+// //           Cette plateforme permet aux entreprises de gérer efficacement leurs stagiaires,
+// //           depuis la publication des offres de stage jusqu'à l'évaluation finale.
+// //         </p>
+// //         <div className={styles.buttonGroup}>
+// //           <a href="/register" className={styles.primaryBtn}>S'inscrire</a>
+// //           <a href="/login" className={styles.secondaryBtn}>Se connecter</a>
+// //         </div>
+// //       </div>
+
+// //       <div className={styles.featuresSection}>
+// //         <h2 className={styles.sectionTitle}>Fonctionnalités principales</h2>
+// //         <div className={styles.featuresGrid}>
+// //           <div className={styles.featureCard}>
+// //             <div className={styles.featureIcon}><FaClipboardList /></div>
+// //             <h3 className={styles.featureTitle}>Gestion des offres</h3>
+// //             <p className={styles.featureDescription}>Publiez et gérez facilement vos offres de stage</p>
+// //           </div>
+// //           <div className={styles.featureCard}>
+// //             <div className={styles.featureIcon}><FaPeopleArrows /></div>
+// //             <h3 className={styles.featureTitle}>Suivi des candidatures</h3>
+// //             <p className={styles.featureDescription}>Suivez et analysez les candidatures reçues</p>
+// //           </div>
+// //           <div className={styles.featureCard}>
+// //             <div className={styles.featureIcon}><FaChartLine /></div>
+// //             <h3 className={styles.featureTitle}>Évaluation des stagiaires</h3>
+// //             <p className={styles.featureDescription}>Évaluez et donnez du feedback sur les performances</p>
+// //           </div>
+// //           <div className={styles.featureCard}>
+// //             <div className={styles.featureIcon}><FaRobot /></div>
+// //             <h3 className={styles.featureTitle}>IA pour le recrutement</h3>
+// //             <p className={styles.featureDescription}>Utilisez l'IA pour trouver les meilleurs profils</p>
+// //           </div>
+// //         </div>
+// //       </div>
+// //     </div>
+// //   );
+// // };
+
+// // export default Home;
+
+
+// // Enhanced Home.jsx avec Framer Motion
+// import React, { useState } from 'react';
+// import { motion, useScroll, useTransform } from 'framer-motion';
+// import { 
+//   FaClipboardList, 
+//   FaPeopleArrows, 
+//   FaChartLine, 
+//   FaRobot,
+//   FaUsers,
+//   FaGraduationCap,
+//   FaBuilding,
+//   FaCheckCircle,
+//   FaStar,
+//   FaQuoteLeft,
+//   FaArrowRight,
+//   FaPlay
+// } from 'react-icons/fa';
 // import styles from './Home.module.css';
 
 // const Home = () => {
+//   const [activeTestimonial, setActiveTestimonial] = useState(0);
+//   const { scrollYProgress } = useScroll();
+//   const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+//   // Animations variants
+//   const containerVariants = {
+//     hidden: { opacity: 0 },
+//     visible: {
+//       opacity: 1,
+//       transition: {
+//         delayChildren: 0.2,
+//         staggerChildren: 0.1
+//       }
+//     }
+//   };
+
+//   const itemVariants = {
+//     hidden: { y: 50, opacity: 0 },
+//     visible: {
+//       y: 0,
+//       opacity: 1,
+//       transition: {
+//         duration: 0.6,
+//         ease: "easeOut"
+//       }
+//     }
+//   };
+
+//   const cardVariants = {
+//     hidden: { scale: 0.8, opacity: 0 },
+//     visible: {
+//       scale: 1,
+//       opacity: 1,
+//       transition: {
+//         duration: 0.5,
+//         ease: "easeOut"
+//       }
+//     },
+//     hover: {
+//       scale: 1.05,
+//       y: -10,
+//       transition: {
+//         duration: 0.3,
+//         ease: "easeInOut"
+//       }
+//     }
+//   };
+
+//   const testimonials = [
+//     {
+//       name: "Marie Dubois",
+//       role: "Responsable RH - TechCorp",
+//       content: "Cette plateforme a révolutionné notre processus de recrutement de stagiaires. L'IA nous fait gagner un temps précieux !",
+//       rating: 5,
+//       avatar: "M"
+//     },
+//     {
+//       name: "Pierre Martin",
+//       role: "Directeur - InnovStart",
+//       content: "Interface intuitive et fonctionnalités complètes. Nos équipes ont adopté la solution très rapidement.",
+//       rating: 5,
+//       avatar: "P"
+//     },
+//     {
+//       name: "Sophie Laurent",
+//       role: "Manager - DigitalPlus",
+//       content: "Le suivi des stagiaires n'a jamais été aussi simple. Tableau de bord clair et reporting automatisé.",
+//       rating: 5,
+//       avatar: "S"
+//     }
+//   ];
+
+//   const stats = [
+//     { icon: FaUsers, number: "500+", label: "Entreprises actives" },
+//     { icon: FaGraduationCap, number: "2000+", label: "Stagiaires placés" },
+//     { icon: FaBuilding, number: "95%", label: "Taux de satisfaction" },
+//     { icon: FaCheckCircle, number: "1M+", label: "Candidatures traitées" }
+//   ];
+
 //   return (
 //     <div className={styles.homeContainer}>
-//       <div className={styles.heroSection}>
-//         <h1 className={styles.title}>Bienvenue sur la Plateforme de Gestion des Stagiaires</h1>
-//         <p className={styles.description}>
-//           Cette plateforme permet aux entreprises de gérer efficacement leurs stagiaires,
-//           depuis la publication des offres de stage jusqu'à l'évaluation finale.
-//         </p>
-//         <div className={styles.buttonGroup}>
-//           <a href="/register" className={styles.primaryBtn}>S'inscrire</a>
-//           <a href="/login" className={styles.secondaryBtn}>Se connecter</a>
+//       {/* Hero Section avec parallax */}
+//       <motion.div 
+//         className={styles.heroSection}
+//         style={{ y }}
+//         initial={{ opacity: 0, y: 100 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.8, ease: "easeOut" }}
+//       >
+//         <div className={styles.heroContent}>
+//           <motion.div
+//             className={styles.heroText}
+//             variants={containerVariants}
+//             initial="hidden"
+//             animate="visible"
+//           >
+//             <motion.h1 className={styles.title} variants={itemVariants}>
+//               Transformez votre gestion des 
+//               <span className={styles.highlight}> stagiaires</span>
+//             </motion.h1>
+            
+//             <motion.p className={styles.description} variants={itemVariants}>
+//               Plateforme intelligente tout-en-un pour recruter, gérer et évaluer vos stagiaires 
+//               avec l'aide de l'IA. Simplifiez vos processus RH dès aujourd'hui.
+//             </motion.p>
+
+//             <motion.div className={styles.buttonGroup} variants={itemVariants}>
+//               <motion.a 
+//                 href="/register" 
+//                 className={styles.primaryBtn}
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//               >
+//                 <span>Commencer gratuitement</span>
+//                 <FaArrowRight className={styles.btnIcon} />
+//               </motion.a>
+              
+//               <motion.a 
+//                 href="#demo" 
+//                 className={styles.secondaryBtn}
+//                 whileHover={{ scale: 1.05 }}
+//                 whileTap={{ scale: 0.95 }}
+//               >
+//                 <FaPlay className={styles.btnIcon} />
+//                 <span>Voir la démo</span>
+//               </motion.a>
+//             </motion.div>
+//           </motion.div>
+
+//           <motion.div 
+//             className={styles.heroVisual}
+//             initial={{ opacity: 0, x: 100 }}
+//             animate={{ opacity: 1, x: 0 }}
+//             transition={{ duration: 0.8, delay: 0.3 }}
+//           >
+//             <div className={styles.dashboardPreview}>
+//               <div className={styles.previewHeader}>
+//                 <div className={styles.previewDots}>
+//                   <span></span><span></span><span></span>
+//                 </div>
+//                 <span className={styles.previewTitle}>Dashboard RH</span>
+//               </div>
+//               <div className={styles.previewContent}>
+//                 <div className={styles.previewChart}></div>
+//                 <div className={styles.previewStats}>
+//                   <div className={styles.stat}>
+//                     <span className={styles.statNumber}>47</span>
+//                     <span className={styles.statLabel}>Candidatures</span>
+//                   </div>
+//                   <div className={styles.stat}>
+//                     <span className={styles.statNumber}>12</span>
+//                     <span className={styles.statLabel}>En cours</span>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </motion.div>
 //         </div>
-//       </div>
-      
-//       <div className={styles.featuresSection}>
-//         <h2 className={styles.sectionTitle}>Fonctionnalités principales</h2>
-//         <div className={styles.featuresGrid}>
-//           <div className={styles.featureCard}>
-//             <div className={styles.featureIcon}>📝</div>
-//             <h3 className={styles.featureTitle}>Gestion des offres</h3>
-//             <p className={styles.featureDescription}>Publiez et gérez facilement vos offres de stage</p>
+//       </motion.div>
+
+//       {/* Stats Section */}
+//       <motion.section 
+//         className={styles.statsSection}
+//         initial={{ opacity: 0 }}
+//         whileInView={{ opacity: 1 }}
+//         transition={{ duration: 0.6 }}
+//         viewport={{ once: true }}
+//       >
+//         <div className={styles.statsGrid}>
+//           {stats.map((stat, index) => (
+//             <motion.div
+//               key={index}
+//               className={styles.statCard}
+//               initial={{ scale: 0, opacity: 0 }}
+//               whileInView={{ scale: 1, opacity: 1 }}
+//               transition={{ duration: 0.5, delay: index * 0.1 }}
+//               viewport={{ once: true }}
+//             >
+//               <stat.icon className={styles.statIcon} />
+//               <motion.span 
+//                 className={styles.statNumber}
+//                 initial={{ opacity: 0 }}
+//                 whileInView={{ opacity: 1 }}
+//                 transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
+//               >
+//                 {stat.number}
+//               </motion.span>
+//               <span className={styles.statLabel}>{stat.label}</span>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </motion.section>
+
+//       {/* Features Section */}
+//       <motion.section 
+//         className={styles.featuresSection}
+//         variants={containerVariants}
+//         initial="hidden"
+//         whileInView="visible"
+//         viewport={{ once: true, margin: "-100px" }}
+//       >
+//         <motion.h2 className={styles.sectionTitle} variants={itemVariants}>
+//           Fonctionnalités qui font la différence
+//         </motion.h2>
+        
+//         <motion.div className={styles.featuresGrid}>
+//           {[
+//             {
+//               icon: FaClipboardList,
+//               title: "Gestion des offres",
+//               description: "Créez, publiez et gérez vos offres de stage avec un éditeur intuitif",
+//               color: "#3b82f6"
+//             },
+//             {
+//               icon: FaPeopleArrows,
+//               title: "Suivi des candidatures",
+//               description: "Suivez le parcours de chaque candidat avec un pipeline visuel",
+//               color: "#10b981"
+//             },
+//             {
+//               icon: FaChartLine,
+//               title: "Évaluation intelligente",
+//               description: "Évaluez les performances avec des grilles personnalisables",
+//               color: "#f59e0b"
+//             },
+//             {
+//               icon: FaRobot,
+//               title: "IA de recrutement",
+//               description: "Algorithmes avancés pour matcher les meilleurs profils",
+//               color: "#8b5cf6"
+//             }
+//           ].map((feature, index) => (
+//             <motion.div
+//               key={index}
+//               className={styles.featureCard}
+//               variants={cardVariants}
+//               whileHover="hover"
+//               style={{ "--feature-color": feature.color }}
+//             >
+//               <div className={styles.featureIcon}>
+//                 <feature.icon />
+//               </div>
+//               <h3 className={styles.featureTitle}>{feature.title}</h3>
+//               <p className={styles.featureDescription}>{feature.description}</p>
+//               <motion.div 
+//                 className={styles.featureArrow}
+//                 initial={{ x: -10, opacity: 0 }}
+//                 whileHover={{ x: 0, opacity: 1 }}
+//               >
+//                 <FaArrowRight />
+//               </motion.div>
+//             </motion.div>
+//           ))}
+//         </motion.div>
+//       </motion.section>
+
+//       {/* How it Works Section */}
+//       <motion.section 
+//         className={styles.howItWorksSection}
+//         initial={{ opacity: 0 }}
+//         whileInView={{ opacity: 1 }}
+//         transition={{ duration: 0.6 }}
+//         viewport={{ once: true }}
+//       >
+//         <h2 className={styles.sectionTitle}>Comment ça marche ?</h2>
+//         <div className={styles.stepsContainer}>
+//           {[
+//             {
+//               step: "1",
+//               title: "Créez votre compte",
+//               description: "Inscription rapide et configuration de votre profil entreprise"
+//             },
+//             {
+//               step: "2", 
+//               title: "Publiez vos offres",
+//               description: "Utilisez notre éditeur pour créer des offres attractives"
+//             },
+//             {
+//               step: "3",
+//               title: "Recevez des candidatures",
+//               description: "L'IA pré-sélectionne les profils les plus pertinents"
+//             },
+//             {
+//               step: "4",
+//               title: "Gérez vos stagiaires",
+//               description: "Suivez, évaluez et accompagnez vos stagiaires"
+//             }
+//           ].map((item, index) => (
+//             <motion.div
+//               key={index}
+//               className={styles.stepCard}
+//               initial={{ opacity: 0, y: 50 }}
+//               whileInView={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.5, delay: index * 0.1 }}
+//               viewport={{ once: true }}
+//             >
+//               <div className={styles.stepNumber}>{item.step}</div>
+//               <h3 className={styles.stepTitle}>{item.title}</h3>
+//               <p className={styles.stepDescription}>{item.description}</p>
+//             </motion.div>
+//           ))}
+//         </div>
+//       </motion.section>
+
+//       {/* Testimonials Section */}
+//       <motion.section 
+//         className={styles.testimonialsSection}
+//         initial={{ opacity: 0 }}
+//         whileInView={{ opacity: 1 }}
+//         transition={{ duration: 0.6 }}
+//         viewport={{ once: true }}
+//       >
+//         <h2 className={styles.sectionTitle}>Ce que disent nos clients</h2>
+//         <div className={styles.testimonialsContainer}>
+//           <div className={styles.testimonialCard}>
+//             <FaQuoteLeft className={styles.quoteIcon} />
+//             <motion.p 
+//               className={styles.testimonialText}
+//               key={activeTestimonial}
+//               initial={{ opacity: 0, y: 20 }}
+//               animate={{ opacity: 1, y: 0 }}
+//               transition={{ duration: 0.5 }}
+//             >
+//               {testimonials[activeTestimonial].content}
+//             </motion.p>
+            
+//             <div className={styles.testimonialAuthor}>
+//               <div className={styles.authorAvatar}>
+//                 {testimonials[activeTestimonial].avatar}
+//               </div>
+//               <div className={styles.authorInfo}>
+//                 <h4>{testimonials[activeTestimonial].name}</h4>
+//                 <p>{testimonials[activeTestimonial].role}</p>
+//                 <div className={styles.rating}>
+//                   {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
+//                     <FaStar key={i} />
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
 //           </div>
-          
-//           <div className={styles.featureCard}>
-//             <div className={styles.featureIcon}>👥</div>
-//             <h3 className={styles.featureTitle}>Suivi des candidatures</h3>
-//             <p className={styles.featureDescription}>Suivez et analysez les candidatures reçues</p>
-//           </div>
-          
-//           <div className={styles.featureCard}>
-//             <div className={styles.featureIcon}>📊</div>
-//             <h3 className={styles.featureTitle}>Évaluation des stagiaires</h3>
-//             <p className={styles.featureDescription}>Évaluez et donnez du feedback sur les performances</p>
-//           </div>
-          
-//           <div className={styles.featureCard}>
-//             <div className={styles.featureIcon}>🤖</div>
-//             <h3 className={styles.featureTitle}>IA pour le recrutement</h3>
-//             <p className={styles.featureDescription}>Utilisez l'IA pour trouver les meilleurs profils</p>
+
+//           <div className={styles.testimonialDots}>
+//             {testimonials.map((_, index) => (
+//               <button
+//                 key={index}
+//                 className={`${styles.dot} ${index === activeTestimonial ? styles.active : ''}`}
+//                 onClick={() => setActiveTestimonial(index)}
+//               />
+//             ))}
 //           </div>
 //         </div>
-//       </div>
+//       </motion.section>
+
+//       {/* CTA Section */}
+//       <motion.section 
+//         className={styles.ctaSection}
+//         initial={{ opacity: 0, scale: 0.95 }}
+//         whileInView={{ opacity: 1, scale: 1 }}
+//         transition={{ duration: 0.6 }}
+//         viewport={{ once: true }}
+//       >
+//         <div className={styles.ctaContent}>
+//           <h2>Prêt à transformer votre gestion des stagiaires ?</h2>
+//           <p>Rejoignez plus de 500 entreprises qui font confiance à notre plateforme</p>
+//           <motion.div className={styles.ctaButtons}>
+//             <motion.a 
+//               href="/register"
+//               className={styles.primaryBtn}
+//               whileHover={{ scale: 1.05 }}
+//               whileTap={{ scale: 0.95 }}
+//             >
+//               Commencer maintenant
+//             </motion.a>
+//             <motion.a 
+//               href="/contact"
+//               className={styles.secondaryBtn}
+//               whileHover={{ scale: 1.05 }}
+//               whileTap={{ scale: 0.95 }}
+//             >
+//               Nous contacter
+//             </motion.a>
+//           </motion.div>
+//         </div>
+//       </motion.section>
 //     </div>
 //   );
 // };
 
 // export default Home;
-import React from 'react';
-import { FaClipboardList, FaPeopleArrows, FaChartLine, FaRobot } from 'react-icons/fa';
+
+
+import React, { useState } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { 
+  FaClipboardList, 
+  FaPeopleArrows, 
+  FaChartLine, 
+  FaRobot,
+  FaUsers,
+  FaGraduationCap,
+  FaBuilding,
+  FaCheckCircle,
+  FaStar,
+  FaQuoteLeft,
+  FaArrowRight,
+  FaPlay,
+  FaSearch,
+  FaHandshake,
+  FaCertificate
+} from 'react-icons/fa';
+import { RiTranslate } from 'react-icons/ri';
 import styles from './Home.module.css';
+import { FaLanguage } from 'react-icons/fa';
 
 const Home = () => {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const { scrollYProgress } = useScroll();
+  const y = useTransform(scrollYProgress, [0, 1], [0, -50]);
+
+  // Animations variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 0.2,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 50, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut"
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    },
+    hover: {
+      scale: 1.05,
+      y: -10,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const testimonials = [
+    {
+      name: "Karim Alami",
+      role: "Directeur RH - OCP Group",
+      content: "Cette plateforme a révolutionné notre gestion des stagiaires. L'intégration de l'IA nous permet de trouver les meilleurs talents marocains rapidement.",
+      rating: 5,
+      avatar: "ك"
+    },
+    {
+      name: "Leila Benbrahim",
+      role: "Responsable Formation - Maroc Telecom",
+      content: "Solution parfaite pour nos besoins en gestion de stages. L'interface en arabe et français est un vrai plus pour nos équipes.",
+      rating: 5,
+      avatar: "ل"
+    },
+    {
+      name: "Youssef El Mansouri",
+      role: "CEO - Startup Gate",
+      content: "En tant que startup, cette plateforme nous offre des outils professionnels à un prix très accessible. Nous recrutons désormais en 2 jours !",
+      rating: 4,
+      avatar: "ي"
+    }
+  ];
+
+  const stats = [
+    { icon: FaUsers, number: "500+", label: "Entreprises partenaires" },
+    { icon: FaGraduationCap, number: "2000+", label: "Stagiaires placés" },
+    { icon: FaBuilding, number: "95%", label: "Taux de satisfaction" },
+    { icon: FaCheckCircle, number: "1M+", label: "Candidatures traitées" }
+  ];
+
+  const features = [
+    {
+      icon: FaClipboardList,
+      title: "Gestion des offres",
+      description: "Publiez vos offres en arabe et français avec notre éditeur avancé",
+      color: "#3b82f6"
+    },
+    {
+      icon: FaPeopleArrows,
+      title: "Suivi des candidatures",
+      description: "Tableau de bord complet pour suivre chaque candidature",
+      color: "#10b981"
+    },
+    {
+      icon: FaChartLine,
+      title: "Évaluation intelligente",
+      description: "Grilles d'évaluation adaptées au marché marocain",
+      color: "#f59e0b"
+    },
+    {
+      icon: FaRobot,
+      title: "IA de recrutement",
+      description: "Algorithmes optimisés pour les profils marocains",
+      color: "#8b5cf6"
+    },
+    {
+      icon: FaSearch,
+      title: "Recherche avancée",
+      description: "Trouvez les compétences rares sur le marché local",
+      color: "#ec4899"
+    },
+    {
+      icon: FaHandshake,
+      title: "Partenariats",
+      description: "Connectez-vous avec les écoles et universités marocaines",
+      color: "#14b8a6"
+    },
+    {
+      icon: FaLanguage,
+      title: "Support ",
+      description: "Interface disponible",
+      color: "#f97316"
+    },
+    {
+      icon: FaCertificate,
+      title: "Attestations",
+      description: "Générez automatiquement les attestations de stage",
+      color: "#6366f1"
+    }
+  ];
+
   return (
     <div className={styles.homeContainer}>
-      <div className={styles.heroSection}>
-        <h1 className={styles.title}>Bienvenue sur la Plateforme de Gestion des Stagiaires</h1>
-        <p className={styles.description}>
-          Cette plateforme permet aux entreprises de gérer efficacement leurs stagiaires,
-          depuis la publication des offres de stage jusqu'à l'évaluation finale.
-        </p>
-        <div className={styles.buttonGroup}>
-          <a href="/register" className={styles.primaryBtn}>S'inscrire</a>
-          <a href="/login" className={styles.secondaryBtn}>Se connecter</a>
-        </div>
-      </div>
+      {/* Hero Section avec parallax */}
+      <motion.div 
+        className={styles.heroSection}
+        style={{ y }}
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <div className={styles.heroPattern}></div>
+        <div className={styles.heroContent}>
+          <motion.div
+            className={styles.heroText}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.h1 className={styles.title} variants={itemVariants}>
+              <span className={styles.arabicTitle}>منصة متكاملة</span><br />
+              Pour la gestion des 
+              <span className={styles.highlight}> stagiaires au Maroc</span>
+            </motion.h1>
+            
+            <motion.p className={styles.description} variants={itemVariants}>
+              La première plateforme intelligente dédiée aux entreprises marocaines pour recruter, 
+              gérer et évaluer les stagiaires avec des outils adaptés au marché local.
+            </motion.p>
 
-      <div className={styles.featuresSection}>
-        <h2 className={styles.sectionTitle}>Fonctionnalités principales</h2>
-        <div className={styles.featuresGrid}>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}><FaClipboardList /></div>
-            <h3 className={styles.featureTitle}>Gestion des offres</h3>
-            <p className={styles.featureDescription}>Publiez et gérez facilement vos offres de stage</p>
+            <motion.div className={styles.buttonGroup} variants={itemVariants}>
+              <motion.a 
+                href="/register" 
+                className={styles.primaryBtn}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span>Commencer gratuitement</span>
+                <FaArrowRight className={styles.btnIcon} />
+              </motion.a>
+              
+              <motion.a 
+                href="#features" 
+                className={styles.secondaryBtn}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <FaPlay className={styles.btnIcon} />
+                <span>Découvrir les fonctionnalités</span>
+              </motion.a>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className={styles.heroVisual}
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <div className={styles.dashboardPreview}>
+              <div className={styles.previewHeader}>
+                <div className={styles.previewDots}>
+                  <span></span><span></span><span></span>
+                </div>
+                <span className={styles.previewTitle}>Tableau de bord RH</span>
+              </div>
+              <div className={styles.previewContent}>
+                <div className={styles.previewChart}></div>
+                <div className={styles.previewStats}>
+                  <div className={styles.stat}>
+                    <span className={styles.statNumber}>47</span>
+                    <span className={styles.statLabel}>Candidatures</span>
+                  </div>
+                  <div className={styles.stat}>
+                    <span className={styles.statNumber}>12</span>
+                    <span className={styles.statLabel}>En cours</span>
+                  </div>
+                </div>
+                <div className={styles.previewArabic}>
+                  <FaLanguage /> نظام متكامل لإدارة المتدربين
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Stats Section */}
+      <motion.section 
+        className={styles.statsSection}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.statsGrid}>
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className={styles.statCard}
+              initial={{ scale: 0, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <stat.icon className={styles.statIcon} />
+              <motion.span 
+                className={styles.statNumber}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.5 + index * 0.1 }}
+              >
+                {stat.number}
+              </motion.span>
+              <span className={styles.statLabel}>{stat.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Features Section - 4 cards per row */}
+      <motion.section 
+        id="features"
+        className={styles.featuresSection}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+      >
+        <motion.div className={styles.sectionHeader} variants={itemVariants}>
+          <motion.h2 className={styles.sectionTitle}>
+            <span className={styles.arabicSubtitle}>ميزات متقدمة</span><br />
+            Une solution complète pour vos besoins
+          </motion.h2>
+          <motion.p className={styles.sectionSubtitle}>
+            Découvrez nos fonctionnalités spécialement conçues pour le marché marocain
+          </motion.p>
+        </motion.div>
+        
+        <motion.div className={styles.featuresGrid}>
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className={styles.featureCard}
+              variants={cardVariants}
+              whileHover="hover"
+              style={{ "--feature-color": feature.color }}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <div className={styles.featureIcon}>
+                <feature.icon />
+              </div>
+              <h3 className={styles.featureTitle}>{feature.title}</h3>
+              <p className={styles.featureDescription}>{feature.description}</p>
+              <motion.div 
+                className={styles.featureArrow}
+                initial={{ x: -10, opacity: 0 }}
+                whileHover={{ x: 0, opacity: 1 }}
+              >
+                <FaArrowRight />
+              </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
+
+      {/* How it Works Section */}
+      <motion.section 
+        className={styles.howItWorksSection}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.arabicSubtitle}>كيفية العمل</span><br />
+            Simple et efficace en 4 étapes
+          </h2>
+        </div>
+        <div className={styles.stepsContainer}>
+          {[
+            {
+              step: "1",
+              title: "Inscription rapide",
+              description: "Créez votre compte entreprise en quelques minutes"
+            },
+            {
+              step: "2", 
+              title: "Publiez vos offres",
+              description: "Rédigez vos offres"
+            },
+            {
+              step: "3",
+              title: "Recevez des candidatures",
+              description: "Notre IA analyse et classe les profils pour vous"
+            },
+            {
+              step: "4",
+              title: "Gérez vos stagiaires",
+              description: "Suivi complet du stage jusqu'à l'évaluation finale"
+            }
+          ].map((item, index) => (
+            <motion.div
+              key={index}
+              className={styles.stepCard}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+            >
+              <div className={styles.stepNumber}>{item.step}</div>
+              <h3 className={styles.stepTitle}>{item.title}</h3>
+              <p className={styles.stepDescription}>{item.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Testimonials Section */}
+      <motion.section 
+        className={styles.testimonialsSection}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.arabicSubtitle}>آراء عملائنا</span><br />
+            Ils nous font confiance
+          </h2>
+        </div>
+        <div className={styles.testimonialsContainer}>
+          <div className={styles.testimonialCard}>
+            <FaQuoteLeft className={styles.quoteIcon} />
+            <motion.p 
+              className={styles.testimonialText}
+              key={activeTestimonial}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {testimonials[activeTestimonial].content}
+            </motion.p>
+            
+            <div className={styles.testimonialAuthor}>
+              <div className={styles.authorAvatar}>
+                {testimonials[activeTestimonial].avatar}
+              </div>
+              <div className={styles.authorInfo}>
+                <h4>{testimonials[activeTestimonial].name}</h4>
+                <p>{testimonials[activeTestimonial].role}</p>
+                <div className={styles.rating}>
+                  {[...Array(testimonials[activeTestimonial].rating)].map((_, i) => (
+                    <FaStar key={i} />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}><FaPeopleArrows /></div>
-            <h3 className={styles.featureTitle}>Suivi des candidatures</h3>
-            <p className={styles.featureDescription}>Suivez et analysez les candidatures reçues</p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}><FaChartLine /></div>
-            <h3 className={styles.featureTitle}>Évaluation des stagiaires</h3>
-            <p className={styles.featureDescription}>Évaluez et donnez du feedback sur les performances</p>
-          </div>
-          <div className={styles.featureCard}>
-            <div className={styles.featureIcon}><FaRobot /></div>
-            <h3 className={styles.featureTitle}>IA pour le recrutement</h3>
-            <p className={styles.featureDescription}>Utilisez l'IA pour trouver les meilleurs profils</p>
+
+          <div className={styles.testimonialDots}>
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.dot} ${index === activeTestimonial ? styles.active : ''}`}
+                onClick={() => setActiveTestimonial(index)}
+                aria-label={`Afficher le témoignage ${index + 1}`}
+              />
+            ))}
           </div>
         </div>
-      </div>
+      </motion.section>
+
+      {/* CTA Section */}
+      <motion.section 
+        className={styles.ctaSection}
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.ctaPattern}></div>
+        <div className={styles.ctaContent}>
+          <h2>
+            <span className={styles.arabicTitle}>انضم إلينا اليوم</span><br />
+            Prêt à transformer votre gestion des stagiaires ?
+          </h2>
+          <p>Rejoignez les entreprises marocaines qui innovent avec notre solution</p>
+          <motion.div className={styles.ctaButtons}>
+            <motion.a 
+              href="/register"
+              className={styles.primaryBtn}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Essai gratuit 30 jours
+            </motion.a>
+            <motion.a 
+              href="/demo"
+              className={styles.secondaryBtn}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Demander une démo
+            </motion.a>
+          </motion.div>
+        </div>
+      </motion.section>
     </div>
   );
 };

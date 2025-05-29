@@ -22,11 +22,18 @@ class Utilisateur(BaseModel):
     # Relation avec les rôles
     roles = relationship("Role", secondary=utilisateur_role, back_populates="utilisateurs")
     
-    # Relations pour les conversations
-    conversations = relationship(
-        "Conversation", 
-        secondary="conversation_participants", 
-        back_populates="participants"
+    # Relations pour les conversations (en tant que participant1)
+    conversations_as_participant1 = relationship(
+    "Conversation", 
+    foreign_keys="Conversation.participant1_id",
+    back_populates="participant1"
+    )
+
+    # Relations pour les conversations (en tant que participant2)  
+    conversations_as_participant2 = relationship(
+    "Conversation", 
+    foreign_keys="Conversation.participant2_id",
+    back_populates="participant2"
     )
     
     __mapper_args__ = {

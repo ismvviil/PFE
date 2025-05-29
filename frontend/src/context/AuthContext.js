@@ -240,3 +240,128 @@ export const useAuth = () => {
   }
   return context;
 };
+
+
+// import React, { createContext, useContext, useState, useEffect } from 'react';
+// import axios from 'axios';
+
+// const AuthContext = createContext(null);
+
+// export const AuthProvider = ({ children }) => {
+//   const [currentUser, setCurrentUser] = useState(null);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   // Fonction pour initialiser l'authentification
+//   const initializeAuth = async () => {
+//     console.log('🔄 Initialisation de l\'authentification...');
+    
+//     try {
+//       const token = localStorage.getItem('token');
+      
+//       if (!token) {
+//         console.log('❌ Aucun token trouvé');
+//         setCurrentUser(null);
+//         return;
+//       }
+
+//       // Vérifier si on a déjà les données utilisateur en cache
+//       const cachedUser = localStorage.getItem('currentUser');
+//       if (cachedUser) {
+//         const userData = JSON.parse(cachedUser);
+//         setCurrentUser(userData);
+//         console.log('✅ Utilisateur chargé depuis le cache:', userData.email);
+//         return;
+//       }
+
+//       // Vérifier le token avec le backend
+//       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+//       const response = await axios.get('http://localhost:5000/api/auth/me');
+      
+//       if (response.data) {
+//         setCurrentUser(response.data);
+//         localStorage.setItem('currentUser', JSON.stringify(response.data));
+//         console.log('✅ Utilisateur authentifié:', response.data.email);
+//       }
+//     } catch (error) {
+//       console.error('❌ Erreur d\'authentification:', error);
+//       // Token invalide - nettoyer
+//       localStorage.removeItem('token');
+//       localStorage.removeItem('currentUser');
+//       delete axios.defaults.headers.common['Authorization'];
+//       setCurrentUser(null);
+//       setError('Session expirée');
+//     } finally {
+//       setLoading(false);
+//       console.log('🏁 Authentification terminée');
+//     }
+//   };
+
+//   useEffect(() => {
+//     initializeAuth();
+//   }, []);
+
+//   // Fonction de connexion
+//   const login = async (email, password) => {
+//     setError(null);
+//     setLoading(true);
+    
+//     try {
+//       const response = await axios.post('http://localhost:5000/api/auth/login', {
+//         email,
+//         password
+//       });
+
+//       const { token, user } = response.data;
+      
+//       // Sauvegarder le token et l'utilisateur
+//       localStorage.setItem('token', token);
+//       localStorage.setItem('currentUser', JSON.stringify(user));
+//       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      
+//       setCurrentUser(user);
+//       console.log('✅ Connexion réussie:', user.email);
+      
+//       return true;
+//     } catch (error) {
+//       console.error('❌ Erreur de connexion:', error);
+//       setError(error.response?.data?.message || 'Erreur de connexion');
+//       return false;
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // Fonction de déconnexion
+//   const logout = () => {
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('currentUser');
+//     delete axios.defaults.headers.common['Authorization'];
+//     setCurrentUser(null);
+//     setError(null);
+//     console.log('👋 Déconnexion effectuée');
+//   };
+
+//   const value = {
+//     currentUser,
+//     loading,
+//     error,
+//     login,
+//     logout,
+//     isAuthenticated: !!currentUser
+//   };
+
+//   return (
+//     <AuthContext.Provider value={value}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+// export const useAuth = () => {
+//   const context = useContext(AuthContext);
+//   if (!context) {
+//     throw new Error('useAuth doit être utilisé dans un AuthProvider');
+//   }
+//   return context;
+// };

@@ -10,3 +10,6 @@ from app.schemas.stagiaire import StagiaireBase, StagiaireCreate, StagiaireUpdat
 from app.schemas.entreprise import EntrepriseBase, EntrepriseCreate, EntrepriseUpdate, Entreprise
 from app.schemas.auth import Token, TokenData
 from app.schemas.offre import OffreBase, OffreCreate, OffreUpdate, Offre, OffreSearchResult
+from app.schemas.candidature import CandidatureBase, CandidatureCreate, CandidatureResponse, CandidatureTraitement
+from app.schemas.conversation import ConversationCreate, ConversationResponse, ConversationWithLastMessage
+from app.schemas.message import MessageCreate, MessageResponse, MessageUpdate, ConversationMessages

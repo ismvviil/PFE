@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import styles from "./Sidebar.module.css";
+// import { useNotificationContext } from '../../context/NotificationContext';
+import { useConversations } from "../../hooks/useConversations"; // 🔥 NOUVEAU HOOK
 
 const Sidebar = () => {
   const { currentUser, logout } = useAuth();
@@ -10,6 +12,8 @@ const Sidebar = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 480);
+
+  const { unreadCount } = useConversations();
 
   // Détecte si l'écran est mobile
   useEffect(() => {
@@ -51,20 +55,41 @@ const Sidebar = () => {
       links.push(
         { path: "/offres", icon: "📝", label: "Mes Offres" },
         { path: "/offres/nouvelle", icon: "➕", label: "Nouvelle Offre" },
-        { path: "/candidatures-recues", icon: "📋", label: "Candidatures" }
+        { path: "/candidatures-recues", icon: "📋", label: "Candidatures" },
+        // { path: '/messages', icon: '💬', label: 'Messages', badge: unreadCount > 0 ? unreadCount : null }
+        {
+          path: "/messages",
+          icon: "💬",
+          label: "Messages",
+          badge: unreadCount > 0 ? unreadCount : null, // 🔥 BADGE DYNAMIQUE
+        }
       );
     } else if (currentUser.type === "responsable_rh") {
       links.push(
         // { path: "/offres", icon: "📝", label: "Toutes les Offres" }, // RH peut voir toutes les offres
         { path: "/stagiaires", icon: "👥", label: "Stagiaires" },
         { path: "/certificats", icon: "🎓", label: "Certificats" },
-        { path: "/rapports", icon: "📊", label: "Rapports" }
+        { path: "/rapports", icon: "📊", label: "Rapports" },
+        // { path: '/messages', icon: '💬', label: 'Messages', badge: unreadCount > 0 ? unreadCount : null }
+        {
+          path: "/messages",
+          icon: "💬",
+          label: "Messages",
+          badge: unreadCount > 0 ? unreadCount : null, // 🔥 BADGE DYNAMIQUE
+        }
       );
     } else if (currentUser.type === "stagiaire") {
       links.push(
         { path: "/offres", icon: "🔍", label: "Offres Disponibles" }, // Stagiaires voient les offres disponibles
         { path: "/mes-candidatures", icon: "📋", label: "Mes andidatures" },
-        { path: "/mes-stages", icon: "📚", label: "Mes Stages" }
+        { path: "/mes-stages", icon: "📚", label: "Mes Stages" },
+        // { path: '/messages', icon: '💬', label: 'Messages', badge: unreadCount > 0 ? unreadCount : null }
+        {
+          path: "/messages",
+          icon: "💬",
+          label: "Messages",
+          badge: unreadCount > 0 ? unreadCount : null, // 🔥 BADGE DYNAMIQUE
+        }
       );
     }
 
@@ -141,13 +166,28 @@ const Sidebar = () => {
         <ul className={styles.navMenu}>
           {navLinks.map((link) => (
             <li key={link.path} className={styles.navItem}>
-              <Link
+              {/* <Link
                 to={link.path}
                 className={`${styles.navLink} ${isActive(link.path)}`}
               >
                 <span className={styles.navIcon}>{link.icon}</span>
                 {(!collapsed || isMobile) && (
                   <span className={styles.navText}>{link.label}</span>
+                )}
+              </Link> */}
+              <Link
+                to={link.path}
+                className={`${styles.navLink} ${isActive(link.path)}`}
+              >
+                <span className={styles.navIcon}>{link.icon}</span>
+                {(!collapsed || isMobile) && (
+                  <>
+                    <span className={styles.navText}>{link.label}</span>
+                    {/* 🔥 BADGE POUR LES MESSAGES NON LUS */}
+                    {link.badge && link.badge > 0 && (
+                      <span className={styles.navBadge}>{link.badge}</span>
+                    )}
+                  </>
                 )}
               </Link>
             </li>
@@ -163,7 +203,7 @@ const Sidebar = () => {
           </button>
         </div>
         {/* //////////// */}
-       
+
         {/* //////// */}
       </div>
 
@@ -177,7 +217,12 @@ const Sidebar = () => {
                 to={link.path}
                 className={`${styles.bottomBarItem} ${isActive(link.path)}`}
               >
-                <span className={styles.bottomBarIcon}>{link.icon}</span>
+                <span className={styles.bottomBarIcon}>{link.icon}
+                  {/* 🔥 BADGE MOBILE POUR MESSAGES */}
+                  {link.badge && link.badge > 0 && (
+                    <span className={styles.mobileBadge}>{link.badge}</span>
+                  )}
+                </span>
                 <span>{link.label}</span>
               </Link>
             ))}

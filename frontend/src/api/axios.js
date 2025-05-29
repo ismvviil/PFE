@@ -18,18 +18,34 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
+// // Intercepteur pour gérer les erreurs de réponse
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => {
+//     if (error.response && error.response.status === 401) {
+//       // Si l'API renvoie une erreur 401, déconnectez l'utilisateur
+//       localStorage.removeItem('token');
+//       localStorage.removeItem('user');
+//       window.location.href = '/login';
+//     }
+//     return Promise.reject(error);
+//   }
+// );
 // Intercepteur pour gérer les erreurs de réponse
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {
-      // Si l'API renvoie une erreur 401, déconnectez l'utilisateur
+      // Si l'API renvoie une erreur 401, nettoyer les données locales
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      window.location.href = '/login';
+      
+      // Seulement rediriger si on n'est pas déjà sur la page de login
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/') {
+        window.location.href = '/login';
+      }
     }
     return Promise.reject(error);
   }
 );
-
 export default axiosInstance;

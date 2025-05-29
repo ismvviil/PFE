@@ -1,10 +1,12 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, WebSocket, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
 from app.api.endpoints.router import api_router
 from app.db import init_db
 import logging
-
+from sqlalchemy.orm import Session
+from app.core.database import get_db
+from app.websocket.endpoint import websocket_endpoint
 # Import all models to ensure they are registered with SQLAlchemy
 from app.models import (
     BaseModel, Utilisateur, Role, ResponsableRH, 
@@ -15,7 +17,8 @@ from app.models import (
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
-    openapi_url=f"{settings.API_V1_STR}/openapi.json"
+    openapi_url=f"{settings.API_V1_STR}/openapi.json",
+    # redirect_slashes=False
 )
 
 # DEBUG: Vérifiez ce qui est chargé
@@ -51,6 +54,11 @@ except Exception as e:
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+# Route WebSocket
+@app.websocket("/ws")
+async def websocket_route(websocket: WebSocket, token: str, db: Session = Depends(get_db)):
+    await websocket_endpoint(websocket, token, db)
+    
 @app.get("/")
 async def root():
     return {"message": "Bienvenue sur l'API de gestion des stagiaires"}

@@ -20,9 +20,16 @@ import StagiaireRoute from "./components/common/StagiaireRoute.js";
 import CandidatureForm from "./components/candidatures/CandidatureForm.js";
 import MesCandidatures from "./components/candidatures/MesCandidatures.js";
 import CandidaturesRecues from "./components/candidatures/CandidaturesRecues.jsx";
+// import Messaging from "./pages/Messaging.jsx";
+// import { NotificationProvider } from "./context/NotificationContext.jsx";
+
+// import MessagingLayout from "./components/messaging/MessagingLayout.js";
+import MessagingPage from "./pages/MessagingPage.jsx";
+
 function App() {
   return (
     <AuthProvider>
+      {/* <NotificationProvider> */}
       <Router>
         <div className="App">
           <MainLayout>
@@ -101,11 +108,36 @@ function App() {
                   </StagiaireRoute>
                 }
               />
+              {/* <Route
+                path="/messages"
+                element={
+                  <PrivateRoute>
+                    <MessagingLayout />
+                  </PrivateRoute>
+                }
+              /> */}
+              {/* <Route
+                path="/messages"
+                element={
+                  <PrivateRoute>
+                    <Messaging />
+                  </PrivateRoute>
+                }
+              /> */}
+               {/* 🔥 ROUTE MESSAGERIE - Accessible à tous les utilisateurs connectés */}
+              <Route
+                path="/messages"
+                element={
+                  <PrivateRoute>
+                    <MessagingPage />
+                  </PrivateRoute>
+                }
+              />
             </Routes>
           </MainLayout>
-          ={" "}
         </div>
       </Router>
+      {/* </NotificationProvider> */}
     </AuthProvider>
   );
 }

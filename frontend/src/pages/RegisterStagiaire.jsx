@@ -21,29 +21,67 @@ const RegisterStagiaire = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // const handleFileChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     // Pour prévisualiser l'image
+  //     setPreviewUrl(URL.createObjectURL(file));
+  //     // Pour stocker l'image dans formData
+  //     setFormData({ ...formData, photo: file });
+  //   }
+  // };
   const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      // Pour prévisualiser l'image
-      setPreviewUrl(URL.createObjectURL(file));
-      // Pour stocker l'image dans formData
-      setFormData({ ...formData, photo: file });
-    }
-  };
+  const file = e.target.files[0];
+  if (file) {
+    // Pour prévisualiser l'image
+    setPreviewUrl(URL.createObjectURL(file));
+    // ⬅️ Stockez le nom du fichier comme string (ou null temporairement)
+    setFormData({ ...formData, photo: file.name });  // ✅ String au lieu de File object
+  } else {
+    // ⬅️ Gérez le cas où aucun fichier n'est sélectionné
+    setFormData({ ...formData, photo: null });
+    setPreviewUrl('');
+  }
+};
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   setLoading(true);
+    
+  //   try {
+  //     await register(formData, 'stagiaire');
+  //     navigate('/login');
+  //   } catch (err) {
+  //     console.error('Erreur d\'inscription:', err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
+  
+  try {
+    // ⬅️ Préparez les données en vous assurant que photo est une string ou null
+    const dataToSend = {
+      email: formData.email,
+      mot_de_passe: formData.mot_de_passe,
+      nom: formData.nom,
+      prenom: formData.prenom,
+      photo: formData.photo || null  // ✅ Assure que c'est string ou null
+    };
     
-    try {
-      await register(formData, 'stagiaire');
-      navigate('/login');
-    } catch (err) {
-      console.error('Erreur d\'inscription:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
+    console.log("Données envoyées :", dataToSend);  // ⬅️ Pour debug
+    
+    await register(dataToSend, 'stagiaire');
+    navigate('/login');
+  } catch (err) {
+    console.error('Erreur d\'inscription:', err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className={styles.registerContainer}>
