@@ -1,70 +1,161 @@
-/* Sidebar.module.css */
+/* Variables CSS pour les thèmes */
+:root {
+  /* Thème clair */
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #dbeafe;
+  --secondary-color: #64748b;
+  --accent-color: #06b6d4;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  
+  /* Couleurs neutres - Mode clair */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --overlay-color: rgba(0, 0, 0, 0.3);
+  
+  /* Sidebar spécifique */
+  --sidebar-bg: #ffffff;
+  --sidebar-border: #e2e8f0;
+  --nav-item-hover: #f1f5f9;
+  --nav-item-active: #2563eb;
+  --nav-text-active: #ffffff;
+}
+
+/* Thème sombre */
+[data-theme="dark"] {
+  --primary-color: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-light: #1e3a8a;
+  --secondary-color: #94a3b8;
+  --accent-color: #0891b2;
+  --success-color: #059669;
+  --warning-color: #d97706;
+  --danger-color: #dc2626;
+  
+  /* Couleurs neutres - Mode sombre */
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --border-color: #334155;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --overlay-color: rgba(0, 0, 0, 0.5);
+  
+  /* Sidebar spécifique */
+  --sidebar-bg: #1e293b;
+  --sidebar-border: #334155;
+  --nav-item-hover: #334155;
+  --nav-item-active: #3b82f6;
+  --nav-text-active: #ffffff;
+}
+
+/* Styles principaux */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 250px;
-  background-color: white;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  transition: width var(--transition-normal);
-  z-index: 1000;
-  overflow-y: auto;
+  box-shadow: 0 4px 6px -1px var(--shadow-color), 0 2px 4px -1px var(--shadow-color);
 }
 
 .sidebar.collapsed {
   width: 80px;
 }
 
+/* Header */
 .sidebarHeader {
+  padding: 1.5rem 1rem;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #eee;
+  background: var(--bg-secondary);
 }
 
 .logo {
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-color);
   text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.logo:hover {
+  color: var(--primary-hover);
+  transform: scale(1.02);
+}
+
+.headerControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.themeToggle {
+  background: none;
+  border: none;
   font-size: 1.2rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
+}
+
+.themeToggle:hover {
+  background: var(--nav-item-hover);
+  transform: scale(1.1);
 }
 
 .toggleBtn {
   background: none;
   border: none;
-  color: var(--text-medium);
+  font-size: 1.2rem;
   cursor: pointer;
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--border-radius-sm);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  color: var(--text-secondary);
 }
 
 .toggleBtn:hover {
-  background-color: #f5f5f5;
+  background: var(--nav-item-hover);
+  color: var(--primary-color);
 }
 
+/* User Info */
 .userInfo {
+  padding: 1.5rem 1rem;
   display: flex;
   align-items: center;
-  padding: 1.5rem 1rem;
-  border-bottom: 1px solid #eee;
+  gap: 1rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
-  background-color: var(--primary-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 2px solid var(--primary-light);
+  flex-shrink: 0;
 }
 
 .avatar img {
@@ -74,289 +165,521 @@
 }
 
 .avatarInitial {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: white;
   font-weight: 600;
   font-size: 1.2rem;
 }
 
 .userDetails {
-  margin-left: 1rem;
-  white-space: nowrap;
-  overflow: hidden;
+  flex: 1;
+  min-width: 0;
 }
 
 .userName {
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-primary);
+  font-size: 1rem;
   margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .userRole {
-  font-size: 0.8rem;
-  color: var(--text-muted);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
 }
 
+/* Navigation */
 .navMenu {
   flex: 1;
-  list-style: none;
   padding: 1rem 0;
-  margin: a0;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
 }
 
 .navItem {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .navLink {
   display: flex;
   align-items: center;
-  padding: 0.75rem 1.5rem;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  color: var(--text-secondary);
   text-decoration: none;
-  color: var(--text-medium);
-  transition: background-color var(--transition-fast);
-  border-left: 3px solid transparent;
+  transition: all 0.2s ease;
+  border-radius: 0.5rem;
+  margin: 0 0.75rem;
+  position: relative;
 }
 
 .navLink:hover {
-  background-color: #f5f5f5;
-  color: var(--primary-color);
+  background: var(--nav-item-hover);
+  color: var(--text-primary);
+  transform: translateX(4px);
 }
 
 .navLink.active {
-  background-color: rgba(66, 133, 244, 0.1);
-  color: var(--primary-color);
-  border-left-color: var(--primary-color);
+  background: var(--nav-item-active);
+  color: var(--nav-text-active);
+  box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.navLink.active::before {
+  content: '';
+  position: absolute;
+  left: -0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: var(--primary-color);
+  border-radius: 0 2px 2px 0;
 }
 
 .navIcon {
-  font-size: 1.2rem;
-  margin-right: 1rem;
-  width: 24px;
-  text-align: center;
-}
-
-.sidebar.collapsed .navIcon {
-  margin-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 .navText {
+  font-weight: 500;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.navBadge {
+  background: var(--danger-color);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.125rem 0.5rem;
+  border-radius: 999px;
+  min-width: 1.25rem;
+  text-align: center;
+  margin-left: auto;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+/* Footer */
 .sidebarFooter {
   padding: 1rem;
-  border-top: 1px solid #eee;
+  border-top: 1px solid var(--border-color);
 }
 
 .logoutBtn {
-  width: 100%;
   display: flex;
   align-items: center;
-  padding: 0.75rem 1.5rem;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  width: 100%;
   background: none;
   border: none;
-  color: #d32f2f;
-  font-weight: 500;
+  color: var(--danger-color);
   cursor: pointer;
-  transition: background-color var(--transition-fast);
-  border-radius: var(--border-radius-sm);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  font-size: 1rem;
 }
 
 .logoutBtn:hover {
-  background-color: rgba(211, 47, 47, 0.1);
+  background: rgba(239, 68, 68, 0.1);
+  transform: translateX(4px);
 }
 
-/* Ajoutez ceci à votre Sidebar.module.css */
-
-/* Responsive */
-@media (max-width: 768px) {
-  /* Sidebar en mode tablet */
+/* Mobile Styles */
+@media (max-width: 480px) {
   .sidebar {
-    width: 250px;
     transform: translateX(-100%);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    transition: transform var(--transition-normal), width var(--transition-normal);
+    box-shadow: none;
   }
   
   .sidebar.collapsed {
     transform: translateX(0);
-    width: 250px;
+    width: 100%;
+    z-index: 1001;
   }
   
-  /* Overlay quand la sidebar est ouverte */
-  .overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity var(--transition-normal);
-  }
-  
-  .overlay.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
-  
-  /* Bouton hamburger pour ouvrir la sidebar */
   .mobileToggle {
-    display: block;
     position: fixed;
     top: 1rem;
     left: 1rem;
-    z-index: 1001;
-    background-color: white;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1002;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
     cursor: pointer;
-  }
-}
-
-@media (max-width: 480px) {
-  /* Sidebar transformée en bottom navigation sur mobile */
-  .sidebar {
-    transform: translateY(100%);
-    width: 100%;
-    height: auto;
-    bottom: 0;
-    top: auto;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.2s ease;
   }
   
-  .sidebar.collapsed {
-    transform: translateY(0);
-    width: 100%;
-    height: auto;
-    max-height: 80vh; /* Empêche la sidebar de prendre toute la hauteur */
+  .mobileToggle:hover {
+    background: var(--primary-hover);
+    transform: scale(1.05);
   }
   
-  /* Masquer certains éléments sur mobile */
-  .sidebarHeader, .userInfo {
-    display: none;
-  }
-  
-  /* Afficher la bottomBar sur mobile */
-  .bottomBar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 60px;
-    background-color: white;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 998;
-  }
-  
-  .bottomBarItems {
-    display: flex;
-    width: 100%;
-    justify-content: space-around;
-    align-items: center;
-  }
-  
-  .bottomBarItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex: 1;
-    height: 100%;
-    text-decoration: none;
-    color: var(--text-medium);
-    font-size: 0.7rem;
-    padding: 0.5rem;
-  }
-  
-  .bottomBarItem.active {
-    color: var(--primary-color);
-  }
-  
-  .bottomBarIcon {
-    font-size: 1.4rem;
-    margin-bottom: 0.25rem;
-  }
-  
-  /* Style pour le drawer qui s'ouvre du bas */
-  .drawer {
-    position: fixed;
-    bottom: 60px; /* Hauteur de la bottomBar */
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 997;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
-    transform: translateY(100%);
-    transition: transform var(--transition-normal);
-    padding: 1rem;
-    max-height: calc(100vh - 60px);
-    overflow-y: auto;
-  }
-  
-  .drawer.open {
-    transform: translateY(0);
-  }
-  
-  .drawerHandle {
-    width: 40px;
-    height: 5px;
-    background-color: #ddd;
-    border-radius: 3px;
-    margin: 0 auto 15px;
-  }
-  
-  /* Réorganisation du navMenu pour mobile */
-  .navMenu {
-    padding: 0;
-  }
-  
-  .navItem {
-    margin-bottom: 0.75rem;
-  }
-  
-  .navLink {
-    padding: 1rem;
-    border-radius: 8px;
-    border-left: none;
-  }
-  
-  .navLink.active {
-    border-left: none;
-    background-color: rgba(66, 133, 244, 0.1);
-  }
-  
-  /* Bouton profil mobile */
   .mobileProfileBtn {
     position: fixed;
     top: 1rem;
     right: 1rem;
-    width: 40px;
-    height: 40px;
+    z-index: 1002;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    z-index: 1001;
+    overflow: hidden;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    transition: all 0.2s ease;
   }
   
-  .mobileProfileBtn img {
-    width: 36px;
+  .mobileProfileBtn:hover {
+    transform: scale(1.05);
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--overlay-color);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Bottom Navigation Bar */
+.bottomBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--border-color);
+  padding: 0.5rem 0;
+  box-shadow: 0 -2px 8px var(--shadow-color);
+}
+
+.bottomBarItems {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 100%;
+}
+
+.bottomBarItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.25rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-width: 0;
+  flex: 1;
+}
+
+.bottomBarItem:hover {
+  color: var(--primary-color);
+}
+
+.bottomBarItem.active {
+  color: var(--primary-color);
+}
+
+.bottomBarIcon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottomBarText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.mobileBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--danger-color);
+  color: white;
+  font-size: 0.625rem;
+  font-weight: 600;
+  padding: 0.125rem 0.375rem;
+  border-radius: 999px;
+  min-width: 1rem;
+  text-align: center;
+  animation: pulse 2s infinite;
+}
+
+/* Drawer */
+.drawer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1001;
+  background: var(--sidebar-bg);
+  border-top: 1px solid var(--border-color);
+  border-radius: 1rem 1rem 0 0;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 -4px 16px var(--shadow-color);
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.drawer.open {
+  transform: translateY(0);
+}
+
+.drawerHandle {
+  width: 40px;
+  height: 4px;
+  background: var(--border-color);
+  border-radius: 2px;
+  margin: 0.75rem auto;
+}
+
+.drawerNav {
+  padding: 0 1rem 2rem;
+}
+
+/* Scrollbars */
+.navMenu::-webkit-scrollbar,
+.drawer::-webkit-scrollbar {
+  width: 4px;
+}
+
+.navMenu::-webkit-scrollbar-track,
+.drawer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.navMenu::-webkit-scrollbar-thumb,
+.drawer::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 2px;
+}
+
+.navMenu::-webkit-scrollbar-thumb:hover,
+.drawer::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.sidebar:not(.collapsed) {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Focus states for accessibility */
+.navLink:focus,
+.logoutBtn:focus,
+.toggleBtn:focus,
+.themeToggle:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border-color: #000000;
+    --text-secondary: #000000;
+  }
+  
+  [data-theme="dark"] {
+    --border-color: #ffffff;
+    --text-secondary: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .navLink,
+  .logoutBtn,
+  .toggleBtn,
+  .themeToggle,
+  .overlay,
+  .drawer {
+    transition: none;
+  }
+  
+  .navBadge,
+  .mobileBadge {
+    animation: none;
+  }
+}
+
+/* Dans Sidebar.module.css */
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%; /* ou selon votre design */
+}
+
+.avatarInitial {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ccc;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+}
+
+/* Remplacez la section logo existante par celle-ci */
+
+/* Styles pour le logo image */
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.logo:hover {
+  transform: scale(1.02);
+}
+
+.logoImg {
+  height: 40px; /* Ajustez selon vos besoins */
+  width: auto;
+  transition: all 0.3s ease;
+  object-fit: contain;
+}
+
+/* Transition entre les logos selon le thème */
+.fadeScale {
+  position: relative;
+}
+
+/* Mode sombre - logo avec écriture blanche (par défaut caché) */
+.logoDefault {
+  opacity: 0;
+  transform: scale(1);
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Mode clair - logo avec écriture bleue (visible par défaut) */
+.logoHover {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.3s ease;
+}
+
+/* Quand le mode sombre est activé */
+[data-theme="dark"] .logoDefault {
+  opacity: 1;
+}
+
+[data-theme="dark"] .logoHover {
+  opacity: 0;
+}
+
+/* Adaptation pour la sidebar collapsée */
+.sidebar.collapsed .logo {
+  justify-content: center;
+}
+
+.sidebar.collapsed .logoImg {
+  height: 32px; /* Plus petit quand la sidebar est collapsée */
+}
+
+/* Styles pour mobile */
+@media (max-width: 480px) {
+  .logoImg {
     height: 36px;
-    border-radius: 50%;
-    object-fit: cover;
+  }
+}
+
+/* Animation au chargement */
+@keyframes logoEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.logo .logoImg {
+  animation: logoEntrance 0.5s ease-out;
+}
+
+/* Amélioration de l'accessibilité */
+.logo:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* Pour les écrans haute résolution */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logoImg {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
   }
 }

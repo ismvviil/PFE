@@ -6,7 +6,17 @@ import Footer from './layout/Footer';
 import styles from './MainLayout.module.css';
 
 const MainLayout = ({ children }) => {
-  const { currentUser } = useAuth();
+  const { currentUser, loading } = useAuth(); // ← AJOUT: récupérer loading
+
+  // ← AJOUT: Gérer l'état de chargement
+  if (loading) {
+    return (
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <p>Chargement...</p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.layout}>

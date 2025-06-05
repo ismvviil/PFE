@@ -18,6 +18,7 @@ from app.schemas.candidature import (
 from app.core.file_storage import save_cv_file
 from sqlalchemy.orm import joinedload
 
+from app.models.stage import Stage
 
 router = APIRouter()
 
@@ -150,6 +151,7 @@ def traiter_candidature(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Candidature non trouvée"
         )
+    
     # Vérifier que le recruteur peut traiter cette candidature
     if candidature.offre.recruteur_id != current_user.id:
         raise HTTPException(
@@ -159,7 +161,10 @@ def traiter_candidature(
     
      # Traiter selon l'action
     if traitement.action == "accepter":
-        candidature.accepter(current_user.id, traitement.commentaires)
+        # Créer le stage automatiquement
+        stage = candidature.accepter(current_user.id, traitement.commentaires)
+        db.add(stage)  # Ajouter le stage à la session
+
     elif traitement.action == "refuser":
         candidature.refuser(current_user.id, traitement.commentaires)
     elif traitement.action == "en_cours":
@@ -374,3 +379,4 @@ def retirer_candidature(
     db.commit()
     
     return {"message": "Candidature retirée avec succès"}
+

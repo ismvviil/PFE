@@ -12,6 +12,7 @@ from app.models import (
     BaseModel, Utilisateur, Role, ResponsableRH, 
     Recruteur, Stagiaire, Entreprise, Message , Candidature , Conversation
 )
+from fastapi.staticfiles import StaticFiles
 
 # Dans votre main.py - Ajoutez du debug
 
@@ -72,3 +73,5 @@ async def startup_event():
         logging.info("Base de données initialisée avec succès")
     except Exception as e:
         logging.error(f"Erreur lors de l'initialisation de la base de données: {e}")
+
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")

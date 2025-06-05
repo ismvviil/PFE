@@ -20,6 +20,9 @@ class Stagiaire(Utilisateur):
     # Historique des stages
     # historiques = relationship("HistoriqueStage", back_populates="stagiaire")
     
+    # Remplacer la ligne commentée par :
+    stages = relationship("Stage", back_populates="stagiaire")
+    
     __mapper_args__ = {
         'polymorphic_identity': 'stagiaire',
     }

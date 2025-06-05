@@ -3,6 +3,7 @@ from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 import enum
 from app.models.base import BaseModel
+from app.models.stage import Stage
 
 class StatusCandidature(enum.Enum):
     """Énumération des statuts possibles pour une candidature."""
@@ -39,13 +40,37 @@ class Candidature(BaseModel):
     offre = relationship("Offre", back_populates="candidatures")
     recruteur = relationship("Recruteur", back_populates="candidatures")
 
+    # Ajouter cette ligne dans la classe Candidature
+    stage = relationship("Stage", back_populates="candidature", uselist=False)
+
+    certificat = relationship("Certificat", back_populates="candidature", uselist=False)
+
+
     def accepter(self, recruteur_id, commentaires=None):
-        """Accepter la candidature."""
+        """Accepter la candidature et créer automatiquement un stage."""
+        from app.models.stage import Stage, StatusStage
+
         self.status = StatusCandidature.ACCEPTEE
         self.recruteur_id = recruteur_id
         self.date_fin = func.now()
         if commentaires:
             self.commentaires_recruteur = commentaires
+
+        # Créer automatiquement le stage
+        stage = Stage(
+            candidature_id=self.id,
+            stagiaire_id=self.stagiaire_id,
+            entreprise_id=self.offre.entreprise_id,
+            recruteur_id=recruteur_id,
+            date_debut=self.offre.date_debut,  # Utilise les dates de l'offre
+            date_fin=self.offre.date_fin,
+            status=StatusStage.EN_ATTENTE,
+            description=f"Stage pour l'offre: {self.offre.titre}",
+            objectifs=self.offre.description  # Utilise la description de l'offre comme objectifs initiaux
+        )
+
+        return stage  # Retourne le stage créé pour que l'API puisse le sauvegarder
+
 
     def refuser(self, recruteur_id, commentaires=None):
         """Refuser la candidature."""
@@ -62,6 +87,8 @@ class Candidature(BaseModel):
         # ⚠️ AJOUTEZ CETTE LIGNE QUI MANQUAIT :
         if commentaires:
             self.commentaires_recruteur = commentaires
+
+
     def retirer(self):
         """Permettre au stagiaire de retirer sa candidature."""
         self.status = StatusCandidature.RETIREE

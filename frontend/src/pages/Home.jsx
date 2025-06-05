@@ -529,7 +529,10 @@ import {
   FaPlay,
   FaSearch,
   FaHandshake,
-  FaCertificate
+  FaCertificate,
+  FaUserGraduate,
+  FaUniversity,
+  FaChalkboardTeacher
 } from 'react-icons/fa';
 import { RiTranslate } from 'react-icons/ri';
 import styles from './Home.module.css';
@@ -588,23 +591,23 @@ const Home = () => {
     {
       name: "Karim Alami",
       role: "Directeur RH - OCP Group",
-      content: "Cette plateforme a révolutionné notre gestion des stagiaires. L'intégration de l'IA nous permet de trouver les meilleurs talents marocains rapidement.",
+      content: "Cette plateforme a révolutionné notre gestion des stagiaires. L'intégration de l'IA nous permet de trouver les meilleurs talents rapidement.",
       rating: 5,
-      avatar: "ك"
+      avatar: "KA"
     },
     {
       name: "Leila Benbrahim",
       role: "Responsable Formation - Maroc Telecom",
-      content: "Solution parfaite pour nos besoins en gestion de stages. L'interface en arabe et français est un vrai plus pour nos équipes.",
+      content: "Solution parfaite pour nos besoins en gestion de stages. L'interface intuitive est un vrai plus pour nos équipes.",
       rating: 5,
-      avatar: "ل"
+      avatar: "LB"
     },
     {
       name: "Youssef El Mansouri",
       role: "CEO - Startup Gate",
       content: "En tant que startup, cette plateforme nous offre des outils professionnels à un prix très accessible. Nous recrutons désormais en 2 jours !",
       rating: 4,
-      avatar: "ي"
+      avatar: "YM"
     }
   ];
 
@@ -619,49 +622,49 @@ const Home = () => {
     {
       icon: FaClipboardList,
       title: "Gestion des offres",
-      description: "Publiez vos offres en arabe et français avec notre éditeur avancé",
+      description: "Publiez vos offres de stage avec notre éditeur avancé et intuitif",
       color: "#3b82f6"
     },
     {
       icon: FaPeopleArrows,
       title: "Suivi des candidatures",
-      description: "Tableau de bord complet pour suivre chaque candidature",
+      description: "Tableau de bord complet pour suivre chaque candidature en temps réel",
       color: "#10b981"
     },
     {
       icon: FaChartLine,
       title: "Évaluation intelligente",
-      description: "Grilles d'évaluation adaptées au marché marocain",
+      description: "Grilles d'évaluation personnalisables adaptées à vos besoins",
       color: "#f59e0b"
     },
     {
       icon: FaRobot,
       title: "IA de recrutement",
-      description: "Algorithmes optimisés pour les profils marocains",
+      description: "Algorithmes intelligents pour matcher les meilleurs profils",
       color: "#8b5cf6"
     },
     {
       icon: FaSearch,
       title: "Recherche avancée",
-      description: "Trouvez les compétences rares sur le marché local",
+      description: "Trouvez rapidement les compétences et profils recherchés",
       color: "#ec4899"
     },
     {
       icon: FaHandshake,
       title: "Partenariats",
-      description: "Connectez-vous avec les écoles et universités marocaines",
+      description: "Connectez-vous avec les écoles et universités partenaires",
       color: "#14b8a6"
     },
     {
       icon: FaLanguage,
-      title: "Support ",
-      description: "Interface disponible",
+      title: "Interface moderne",
+      description: "Interface intuitive et responsive pour tous vos appareils",
       color: "#f97316"
     },
     {
       icon: FaCertificate,
       title: "Attestations",
-      description: "Générez automatiquement les attestations de stage",
+      description: "Générez automatiquement les attestations et certificats de stage",
       color: "#6366f1"
     }
   ];
@@ -685,14 +688,13 @@ const Home = () => {
             animate="visible"
           >
             <motion.h1 className={styles.title} variants={itemVariants}>
-              <span className={styles.arabicTitle}>منصة متكاملة</span><br />
-              Pour la gestion des 
-              <span className={styles.highlight}> stagiaires au Maroc</span>
+              Plateforme complète pour la gestion des 
+              <span className={styles.highlight}> stagiaires</span>
             </motion.h1>
             
             <motion.p className={styles.description} variants={itemVariants}>
-              La première plateforme intelligente dédiée aux entreprises marocaines pour recruter, 
-              gérer et évaluer les stagiaires avec des outils adaptés au marché local.
+              La solution intelligente dédiée aux entreprises pour recruter, 
+              gérer et évaluer les stagiaires avec des outils modernes et performants.
             </motion.p>
 
             <motion.div className={styles.buttonGroup} variants={itemVariants}>
@@ -743,8 +745,8 @@ const Home = () => {
                     <span className={styles.statLabel}>En cours</span>
                   </div>
                 </div>
-                <div className={styles.previewArabic}>
-                  <FaLanguage /> نظام متكامل لإدارة المتدربين
+                <div className={styles.previewFeature}>
+                  <FaChartLine /> Système complet de gestion
                 </div>
               </div>
             </div>
@@ -796,11 +798,10 @@ const Home = () => {
       >
         <motion.div className={styles.sectionHeader} variants={itemVariants}>
           <motion.h2 className={styles.sectionTitle}>
-            <span className={styles.arabicSubtitle}>ميزات متقدمة</span><br />
-            Une solution complète pour vos besoins
+            Fonctionnalités avancées
           </motion.h2>
           <motion.p className={styles.sectionSubtitle}>
-            Découvrez nos fonctionnalités spécialement conçues pour le marché marocain
+            Découvrez notre solution complète pour optimiser votre gestion des stagiaires
           </motion.p>
         </motion.div>
         
@@ -843,9 +844,11 @@ const Home = () => {
       >
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            <span className={styles.arabicSubtitle}>كيفية العمل</span><br />
-            Simple et efficace en 4 étapes
+            Comment ça marche
           </h2>
+          <p className={styles.sectionSubtitle}>
+            Simple et efficace en 4 étapes
+          </p>
         </div>
         <div className={styles.stepsContainer}>
           {[
@@ -857,7 +860,7 @@ const Home = () => {
             {
               step: "2", 
               title: "Publiez vos offres",
-              description: "Rédigez vos offres"
+              description: "Rédigez vos offres de stage avec notre éditeur intuitif"
             },
             {
               step: "3",
@@ -896,9 +899,11 @@ const Home = () => {
       >
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            <span className={styles.arabicSubtitle}>آراء عملائنا</span><br />
-            Ils nous font confiance
+            Témoignages clients
           </h2>
+          <p className={styles.sectionSubtitle}>
+            Ils nous font confiance au quotidien
+          </p>
         </div>
         <div className={styles.testimonialsContainer}>
           <div className={styles.testimonialCard}>
@@ -942,6 +947,85 @@ const Home = () => {
         </div>
       </motion.section>
 
+      {/* Academic Supervision Section - NOUVELLE SECTION */}
+      <motion.section 
+        className={styles.academicSection}
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className={styles.academicContainer}>
+          <motion.div 
+            className={styles.academicCard}
+            initial={{ scale: 0.9 }}
+            whileInView={{ scale: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <div className={styles.academicHeader}>
+              <motion.div 
+                className={styles.academicIcon}
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+              >
+                <FaGraduationCap />
+              </motion.div>
+              <h3 className={styles.academicTitle}>Projet de Fin d'Études</h3>
+            </div>
+
+            <div className={styles.academicContent}>
+              <div className={styles.academicInfo}>
+                <div className={styles.studentsSection}>
+                  <div className={styles.sectionIcon}>
+                    <FaUserGraduate />
+                  </div>
+                  <div className={styles.sectionContent}>
+                    <h4>Réalisé par</h4>
+                    <div className={styles.studentNames}>
+                      <span className={styles.studentName}>MOUATE Alaa eddine</span>
+                      <span className={styles.separator}>&</span>
+                      <span className={styles.studentName}>SOUIFI ISMAIL</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className={styles.supervisorSection}>
+                  <div className={styles.sectionIcon}>
+                    <FaChalkboardTeacher />
+                  </div>
+                  <div className={styles.sectionContent}>
+                    <h4>Sous l'encadrement de</h4>
+                    <span className={styles.supervisorName}>Pr. ARHID KHADIJA</span>
+                  </div>
+                </div>
+
+                <div className={styles.institutionSection}>
+                  <div className={styles.sectionIcon}>
+                    <FaUniversity />
+                  </div>
+                  <div className={styles.sectionContent}>
+                    <h4>Institution</h4>
+                    <span className={styles.institutionName}>EST Safi</span>
+                    <span className={styles.academicYear}>Année universitaire 2024-2025</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.academicFooter}>
+              <motion.div 
+                className={styles.academicBadge}
+                whileHover={{ scale: 1.05 }}
+              >
+                <FaGraduationCap className={styles.badgeIcon} />
+                <span>Projet de Fin d'Études</span>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </motion.section>
+
       {/* CTA Section */}
       <motion.section 
         className={styles.ctaSection}
@@ -953,10 +1037,9 @@ const Home = () => {
         <div className={styles.ctaPattern}></div>
         <div className={styles.ctaContent}>
           <h2>
-            <span className={styles.arabicTitle}>انضم إلينا اليوم</span><br />
             Prêt à transformer votre gestion des stagiaires ?
           </h2>
-          <p>Rejoignez les entreprises marocaines qui innovent avec notre solution</p>
+          <p>Rejoignez les entreprises qui innovent avec notre solution moderne</p>
           <motion.div className={styles.ctaButtons}>
             <motion.a 
               href="/register"

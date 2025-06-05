@@ -18,6 +18,12 @@ class Recruteur(Utilisateur):
     # Candidatures gérées
     candidatures = relationship("Candidature", back_populates="recruteur")
     
+
+    # Ajouter ces relations
+    stages_encadres = relationship("Stage", back_populates="recruteur")
+    missions_assignees = relationship("Mission", back_populates="assigne_par")
+
+    
     __mapper_args__ = {
         'polymorphic_identity': 'recruteur',
     }
