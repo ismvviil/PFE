@@ -22,6 +22,7 @@ api_router.include_router(upload.router, prefix="/upload", tags=["upload"])  # â
 
 api_router.include_router(admin.router, prefix="/admin", tags=["admin"])
 
+
 @api_router.get("/health-check")
 def health_check():
     return {"status": "ok"}

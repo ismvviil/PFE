@@ -647,6 +647,9 @@ const Sidebar = () => {
 
   const { unreadCount } = useConversations();
 
+    // const [avatarError, setAvatarError] = useState(false);
+
+    
   // Fonction pour construire l'URL complète de la photo
   // Dans votre Sidebar.jsx
   const getPhotoUrl = (photoPath) => {

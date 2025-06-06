@@ -248,6 +248,43 @@ def register_stagiaire(
 
 
 
+
+# Ajouter cet import en haut du fichier auth.py
+from app.models.admin import Admin
+from app.schemas.admin import AdminCreate
+from app.schemas.admin import Admin as AdminSchema
+
+# Ajouter cette route dans le router auth.py
+@router.post("/register/admin", response_model=AdminSchema)
+def register_admin(
+    *, db: Session = Depends(get_db), admin_in: AdminCreate
+) -> Any:
+    """Enregistrer un nouveau admin (pour le développement seulement)."""
+    
+    # Vérification que l'email n'est pas déjà utilisé
+    user = db.query(Utilisateur).filter(Utilisateur.email == admin_in.email).first()
+    if user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cet email est déjà utilisé."
+        )
+    
+    # Création de l'admin
+    admin = Admin(
+        email=admin_in.email,
+        mot_de_passe=get_password_hash(admin_in.mot_de_passe),
+        nom=admin_in.nom,
+        prenom=admin_in.prenom,
+        niveau_acces=admin_in.niveau_acces
+    )
+    
+    db.add(admin)
+    db.commit()
+    db.refresh(admin)
+    return admin
+
+
+
 # @router.post("/register/stagiaire", response_model=UtilisateurSchema)
 # def register_stagiaire(
 #     *, db: Session = Depends(get_db), stagiaire_in: StagiaireCreate
@@ -308,38 +345,3 @@ def register_stagiaire(
 #     db.commit()
 #     db.refresh(recruteur)
 #     return recruteur
-
-
-# Ajouter cet import en haut du fichier auth.py
-from app.models.admin import Admin
-from app.schemas.admin import AdminCreate
-from app.schemas.admin import Admin as AdminSchema
-
-# Ajouter cette route dans le router auth.py
-@router.post("/register/admin", response_model=AdminSchema)
-def register_admin(
-    *, db: Session = Depends(get_db), admin_in: AdminCreate
-) -> Any:
-    """Enregistrer un nouveau admin (pour le développement seulement)."""
-    
-    # Vérification que l'email n'est pas déjà utilisé
-    user = db.query(Utilisateur).filter(Utilisateur.email == admin_in.email).first()
-    if user:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Cet email est déjà utilisé."
-        )
-    
-    # Création de l'admin
-    admin = Admin(
-        email=admin_in.email,
-        mot_de_passe=get_password_hash(admin_in.mot_de_passe),
-        nom=admin_in.nom,
-        prenom=admin_in.prenom,
-        niveau_acces=admin_in.niveau_acces
-    )
-    
-    db.add(admin)
-    db.commit()
-    db.refresh(admin)
-    return admin
