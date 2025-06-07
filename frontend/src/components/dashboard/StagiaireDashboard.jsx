@@ -1,4 +1,3 @@
-
 // ============================================================================
 // 1. CORRECTION StagiaireDashboard.jsx - Gestion des endpoints manquants
 // ============================================================================
@@ -72,14 +71,14 @@
 //       try {
 //         const candidaturesResponse = await axiosInstance.get("/candidatures/mes-candidatures");
 //         candidatures = candidaturesResponse.data?.candidatures || candidaturesResponse.data || [];
-        
+
 //         // Filtrer pour ne garder que celles du stagiaire connecté
 //         if (currentUser && currentUser.id) {
 //           candidatures = candidatures.filter(c => c.stagiaire_id === currentUser.id);
 //         }
 //       } catch (candidaturesError) {
 //         console.warn("Endpoint /mes-candidatures non trouvé, utilisation de /candidatures:", candidaturesError);
-        
+
 //         // Fallback vers l'endpoint général
 //         try {
 //           const allCandidaturesResponse = await axiosInstance.get("/candidatures/mes-candidatures");
@@ -95,7 +94,7 @@
 //       try {
 //         const evaluationsResponse = await axiosInstance.get("/evaluations");
 //         const allEvaluations = evaluationsResponse.data?.evaluations || evaluationsResponse.data || [];
-        
+
 //         // Filtrer pour ne garder que celles du stagiaire connecté
 //         evaluations = allEvaluations.filter(e => e.stagiaire_id === currentUser.id);
 //       } catch (evaluationsError) {
@@ -114,7 +113,7 @@
 //           : 0;
 
 //       // Calculer les stats réelles
-//       const stagesEnCours = candidatures.filter(c => 
+//       const stagesEnCours = candidatures.filter(c =>
 //         c.status === "acceptee" || c.status === "en_cours"
 //       ).length;
 
@@ -133,7 +132,7 @@
 //         { semaine: "S3", progression: 60, missions: Math.min(evaluations.length, 3) },
 //         { semaine: "S4", progression: Math.min(85, 20 + (evaluations.length * 15)), missions: evaluations.length },
 //       ];
-      
+
 //       setProgressionData(progressionBaseData);
 
 //       // Missions dynamiques basées sur les candidatures
@@ -143,7 +142,7 @@
 //         .map((candidature, index) => ({
 //           id: candidature.id,
 //           titre: candidature.offre?.titre || `Mission ${index + 1}`,
-//           echeance: index === 0 ? "Dans 3 jours" : "Dans 1 semaine", 
+//           echeance: index === 0 ? "Dans 3 jours" : "Dans 1 semaine",
 //           priorite: index === 0 ? "haute" : "normale"
 //         }));
 
@@ -169,7 +168,7 @@
 
 //     } catch (error) {
 //       console.error("Erreur générale chargement dashboard stagiaire:", error);
-      
+
 //       // Données par défaut en cas d'erreur complète
 //       setStats({
 //         mes_candidatures: 0,
@@ -178,14 +177,14 @@
 //         missions_total: 3,
 //         ma_note_moyenne: 0,
 //       });
-      
+
 //       setProgressionData([
 //         { semaine: "S1", progression: 0, missions: 0 },
 //         { semaine: "S2", progression: 0, missions: 0 },
 //         { semaine: "S3", progression: 0, missions: 0 },
 //         { semaine: "S4", progression: 0, missions: 0 },
 //       ]);
-      
+
 //       setProchainesMissions([
 //         {
 //           id: 1,
@@ -208,7 +207,7 @@
 
 //   const getProgressionMessage = () => {
 //     if (stats.missions_total === 0) return "Commencez votre aventure ! 🚀";
-    
+
 //     const percentage = (stats.missions_completees / stats.missions_total) * 100;
 //     if (percentage >= 80) return "Excellent travail ! 🏆";
 //     if (percentage >= 60) return "Très bien, continuez ! 👍";
@@ -427,22 +426,22 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
-  HiClipboardList,     // Candidatures
-  HiChartBar,          // Stages/Analytics
-  HiStar,              // Évaluations/Notes
-  HiAcademicCap,       // Formation/Académique
-  HiSearch,            // Recherche
-  HiEye,               // Voir/Consulter
-  HiCheckCircle,       // Missions complétées
-  HiTrendingUp,        // Progression
-  HiLightBulb,         // Conseils
-  HiCursorClick ,            // Objectifs/Missions
-  HiClock,             // Temps/Échéance
-  HiRefresh,           // Actualiser
-  HiChevronRight,      // Navigation
-  HiSparkles,          // Motivation/Excellence
-  HiHeart,             // Passion
-  HiRocketLaunch       // Ambition (si disponible, sinon HiLightningBolt)
+  HiClipboardList, // Candidatures
+  HiChartBar, // Stages/Analytics
+  HiStar, // Évaluations/Notes
+  HiAcademicCap, // Formation/Académique
+  HiSearch, // Recherche
+  HiEye, // Voir/Consulter
+  HiCheckCircle, // Missions complétées
+  HiTrendingUp, // Progression
+  HiLightBulb, // Conseils
+  HiCursorClick, // Objectifs/Missions
+  HiClock, // Temps/Échéance
+  HiRefresh, // Actualiser
+  HiChevronRight, // Navigation
+  HiSparkles, // Motivation/Excellence
+  HiHeart, // Passion
+  HiRocketLaunch, // Ambition (si disponible, sinon HiLightningBolt)
 } from "react-icons/hi";
 import { HiArrowTrendingUp, HiRocketLaunch as HiRocket } from "react-icons/hi2"; // Icons v2 si disponibles
 import {
@@ -457,6 +456,9 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import axiosInstance from "../../api/axios";
 import styles from "./StagiaireDashboard.module.css";
+
+import RecommendationsWidget from "../stagiaires/RecommendationsWidget";
+import MarketInsightsWidget from "../stagiaires/MarketInsightsWidget";
 
 const StagiaireDashboard = () => {
   const { currentUser } = useAuth();
@@ -476,28 +478,28 @@ const StagiaireDashboard = () => {
     {
       text: "Chaque expérience vous rapproche de vos rêves professionnels",
       icon: HiSparkles,
-      accent: "success"
+      accent: "success",
     },
     {
       text: "Votre apprentissage d'aujourd'hui forge votre expertise de demain",
       icon: HiAcademicCap,
-      accent: "info"
+      accent: "info",
     },
     {
       text: "Osez, apprenez, grandissez - c'est votre moment",
       icon: HiTrendingUp,
-      accent: "warning"
+      accent: "warning",
     },
     {
       text: "Chaque mission est une opportunité de briller",
-      icon: HiCursorClick ,
-      accent: "purple"
+      icon: HiCursorClick,
+      accent: "purple",
     },
     {
       text: "Votre potentiel n'attend que d'être révélé",
       icon: HiRocket || HiLightBulb,
-      accent: "primary"
-    }
+      accent: "primary",
+    },
   ];
 
   const [currentQuote, setCurrentQuote] = useState(0);
@@ -520,22 +522,37 @@ const StagiaireDashboard = () => {
 
       // Charger les candidatures avec fallback
       try {
-        const candidaturesResponse = await axiosInstance.get("/candidatures/mes-candidatures");
-        candidatures = candidaturesResponse.data?.candidatures || candidaturesResponse.data || [];
-        
+        const candidaturesResponse = await axiosInstance.get(
+          "/candidatures/mes-candidatures"
+        );
+        candidatures =
+          candidaturesResponse.data?.candidatures ||
+          candidaturesResponse.data ||
+          [];
+
         if (currentUser && currentUser.id) {
-          candidatures = candidatures.filter(c => c.stagiaire_id === currentUser.id);
+          candidatures = candidatures.filter(
+            (c) => c.stagiaire_id === currentUser.id
+          );
         }
       } catch (candidaturesError) {
-        console.warn("Endpoint /mes-candidatures non trouvé:", candidaturesError);
+        console.warn(
+          "Endpoint /mes-candidatures non trouvé:",
+          candidaturesError
+        );
         candidatures = [];
       }
 
       // Charger les évaluations
       try {
         const evaluationsResponse = await axiosInstance.get("/evaluations");
-        const allEvaluations = evaluationsResponse.data?.evaluations || evaluationsResponse.data || [];
-        evaluations = allEvaluations.filter(e => e.stagiaire_id === currentUser.id);
+        const allEvaluations =
+          evaluationsResponse.data?.evaluations ||
+          evaluationsResponse.data ||
+          [];
+        evaluations = allEvaluations.filter(
+          (e) => e.stagiaire_id === currentUser.id
+        );
       } catch (evaluationsError) {
         console.warn("Erreur chargement évaluations:", evaluationsError);
         evaluations = [];
@@ -548,12 +565,14 @@ const StagiaireDashboard = () => {
 
       const noteMoyenne =
         notesMoyennes.length > 0
-          ? (notesMoyennes.reduce((a, b) => a + b, 0) / notesMoyennes.length).toFixed(1)
+          ? (
+              notesMoyennes.reduce((a, b) => a + b, 0) / notesMoyennes.length
+            ).toFixed(1)
           : 0;
 
       // Calculer les stats réelles
-      const stagesEnCours = candidatures.filter(c => 
-        c.status === "acceptee" || c.status === "en_cours"
+      const stagesEnCours = candidatures.filter(
+        (c) => c.status === "acceptee" || c.status === "en_cours"
       ).length;
 
       setStats({
@@ -568,22 +587,30 @@ const StagiaireDashboard = () => {
       const progressionBaseData = [
         { semaine: "S1", progression: 20, missions: 1 },
         { semaine: "S2", progression: 45, missions: 2 },
-        { semaine: "S3", progression: 60, missions: Math.min(evaluations.length, 3) },
-        { semaine: "S4", progression: Math.min(85, 20 + (evaluations.length * 15)), missions: evaluations.length },
+        {
+          semaine: "S3",
+          progression: 60,
+          missions: Math.min(evaluations.length, 3),
+        },
+        {
+          semaine: "S4",
+          progression: Math.min(85, 20 + evaluations.length * 15),
+          missions: evaluations.length,
+        },
       ];
-      
+
       setProgressionData(progressionBaseData);
 
       // Missions dynamiques
       const missionsDynamiques = candidatures
-        .filter(c => c.status === "acceptee")
+        .filter((c) => c.status === "acceptee")
         .slice(0, 3)
         .map((candidature, index) => ({
           id: candidature.id,
           titre: candidature.offre?.titre || `Mission ${index + 1}`,
-          echeance: index === 0 ? "Dans 3 jours" : "Dans 1 semaine", 
+          echeance: index === 0 ? "Dans 3 jours" : "Dans 1 semaine",
           priorite: index === 0 ? "haute" : "normale",
-          icon: index === 0 ? HiCursorClick  : HiClipboardList
+          icon: index === 0 ? HiCursorClick : HiClipboardList,
         }));
 
       // Missions par défaut si nécessaire
@@ -594,23 +621,22 @@ const StagiaireDashboard = () => {
             titre: "Recherche d'opportunités",
             echeance: "Continu",
             priorite: "normale",
-            icon: HiSearch
+            icon: HiSearch,
           },
           {
             id: 2,
             titre: "Mise à jour profil",
             echeance: "Cette semaine",
             priorite: "normale",
-            icon: HiEye
+            icon: HiEye,
           }
         );
       }
 
       setProchainesMissions(missionsDynamiques);
-
     } catch (error) {
       console.error("Erreur générale chargement dashboard stagiaire:", error);
-      
+
       // Données par défaut
       setStats({
         mes_candidatures: 0,
@@ -619,22 +645,22 @@ const StagiaireDashboard = () => {
         missions_total: 3,
         ma_note_moyenne: 0,
       });
-      
+
       setProgressionData([
         { semaine: "S1", progression: 0, missions: 0 },
         { semaine: "S2", progression: 0, missions: 0 },
         { semaine: "S3", progression: 0, missions: 0 },
         { semaine: "S4", progression: 0, missions: 0 },
       ]);
-      
+
       setProchainesMissions([
         {
           id: 1,
           titre: "Commencer votre recherche",
           echeance: "Dès maintenant",
           priorite: "haute",
-          icon: HiSearch
-        }
+          icon: HiSearch,
+        },
       ]);
     } finally {
       setLoading(false);
@@ -650,7 +676,7 @@ const StagiaireDashboard = () => {
 
   const getProgressionMessage = () => {
     if (stats.missions_total === 0) return "Commencez votre aventure ! 🚀";
-    
+
     const percentage = (stats.missions_completees / stats.missions_total) * 100;
     if (percentage >= 80) return "Excellent travail ! 🏆";
     if (percentage >= 60) return "Très bien, continuez ! 👍";
@@ -666,7 +692,9 @@ const StagiaireDashboard = () => {
           <div className={styles.loadingIconContainer}>
             <HiRefresh className={styles.loadingIcon} />
           </div>
-          <p className={styles.loadingText}>Chargement de votre espace personnel...</p>
+          <p className={styles.loadingText}>
+            Chargement de votre espace personnel...
+          </p>
         </div>
       </div>
     );
@@ -686,7 +714,7 @@ const StagiaireDashboard = () => {
             </div>
             <div className={styles.greetingText}>
               <h1 className={styles.welcomeTitle}>
-                {getTimeGreeting()}, {currentUser?.prenom || 'Stagiaire'} !
+                {getTimeGreeting()}, {currentUser?.prenom || "Stagiaire"} !
               </h1>
               <p className={styles.welcomeSubtitle}>
                 Votre aventure professionnelle continue chaque jour
@@ -694,21 +722,23 @@ const StagiaireDashboard = () => {
             </div>
           </div>
 
-          <div className={`${styles.motivationCard} ${styles[currentMotivation.accent]}`}>
+          <div
+            className={`${styles.motivationCard} ${
+              styles[currentMotivation.accent]
+            }`}
+          >
             <div className={styles.motivationIconContainer}>
               <MotivationIcon className={styles.motivationIcon} />
             </div>
             <div className={styles.motivationContent}>
-              <p className={styles.motivationText}>
-                {currentMotivation.text}
-              </p>
+              <p className={styles.motivationText}>{currentMotivation.text}</p>
               <div className={styles.motivationProgress}>
                 <div className={styles.progressDots}>
                   {motivationalQuotes.map((_, index) => (
-                    <div 
+                    <div
                       key={index}
                       className={`${styles.progressDot} ${
-                        index === currentQuote ? styles.active : ''
+                        index === currentQuote ? styles.active : ""
                       }`}
                     />
                   ))}
@@ -727,13 +757,15 @@ const StagiaireDashboard = () => {
           </div>
           <div className={styles.statsHeaderText}>
             <h2 className={styles.sectionTitle}>Votre parcours en chiffres</h2>
-            <p className={styles.sectionSubtitle}>Synthèse de votre progression professionnelle</p>
+            <p className={styles.sectionSubtitle}>
+              Synthèse de votre progression professionnelle
+            </p>
           </div>
           <button onClick={loadDashboardData} className={styles.refreshButton}>
             <HiRefresh />
           </button>
         </div>
-        
+
         <div className={styles.statsGrid}>
           <div className={`${styles.statCard} ${styles.primary}`}>
             <div className={styles.statIcon}>
@@ -777,10 +809,12 @@ const StagiaireDashboard = () => {
               </div>
             </div>
             <div className={styles.statProgress}>
-              <div 
+              <div
                 className={styles.progressBar}
                 style={{
-                  width: `${(stats.missions_completees / stats.missions_total) * 100}%`
+                  width: `${
+                    (stats.missions_completees / stats.missions_total) * 100
+                  }%`,
                 }}
               />
             </div>
@@ -792,19 +826,27 @@ const StagiaireDashboard = () => {
             </div>
             <div className={styles.statContent}>
               <div className={styles.statValue}>
-                {stats.ma_note_moyenne > 0 ? `${stats.ma_note_moyenne}/10` : 'N/A'}
+                {stats.ma_note_moyenne > 0
+                  ? `${stats.ma_note_moyenne}/10`
+                  : "N/A"}
               </div>
               <div className={styles.statLabel}>Ma note moyenne</div>
               <div className={styles.statDescription}>
-                {stats.ma_note_moyenne > 0 ? 'Performance reconnue' : 'En attente d\'évaluation'}
+                {stats.ma_note_moyenne > 0
+                  ? "Performance reconnue"
+                  : "En attente d'évaluation"}
               </div>
             </div>
             {stats.ma_note_moyenne > 0 && (
               <div className={styles.ratingStars}>
-                {[1, 2, 3, 4, 5].map(star => (
-                  <HiStar 
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <HiStar
                     key={star}
-                    className={star <= Math.round(stats.ma_note_moyenne / 2) ? styles.starFilled : styles.starEmpty}
+                    className={
+                      star <= Math.round(stats.ma_note_moyenne / 2)
+                        ? styles.starFilled
+                        : styles.starEmpty
+                    }
                   />
                 ))}
               </div>
@@ -823,30 +865,32 @@ const StagiaireDashboard = () => {
             </div>
             <div className={styles.chartHeaderText}>
               <h3 className={styles.chartTitle}>Ma Progression</h3>
-              <p className={styles.chartSubtitle}>Évolution de vos compétences</p>
+              <p className={styles.chartSubtitle}>
+                Évolution de vos compétences
+              </p>
             </div>
           </div>
           <div className={styles.chartWrapper}>
             <ResponsiveContainer width="100%" height={280}>
               <LineChart data={progressionData}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-                <XAxis 
-                  dataKey="semaine" 
+                <XAxis
+                  dataKey="semaine"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
+                  tick={{ fill: "#64748b", fontSize: 12 }}
                 />
-                <YAxis 
+                <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#64748b', fontSize: 12 }}
+                  tick={{ fill: "#64748b", fontSize: 12 }}
                 />
-                <Tooltip 
+                <Tooltip
                   contentStyle={{
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #e2e8f0',
-                    borderRadius: '12px',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e2e8f0",
+                    borderRadius: "12px",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
                   }}
                 />
                 <Line
@@ -867,7 +911,7 @@ const StagiaireDashboard = () => {
         <div className={styles.missionsSection}>
           <div className={styles.missionsHeader}>
             <div className={styles.missionsHeaderIcon}>
-              <HiCursorClick  />
+              <HiCursorClick />
             </div>
             <h3 className={styles.missionsTitle}>Prochaines Missions</h3>
           </div>
@@ -875,9 +919,14 @@ const StagiaireDashboard = () => {
           {prochainesMissions.length > 0 ? (
             <div className={styles.missionsList}>
               {prochainesMissions.map((mission) => {
-                const MissionIcon = mission.icon || HiCursorClick ;
+                const MissionIcon = mission.icon || HiCursorClick;
                 return (
-                  <div key={mission.id} className={`${styles.missionItem} ${styles[mission.priorite]}`}>
+                  <div
+                    key={mission.id}
+                    className={`${styles.missionItem} ${
+                      styles[mission.priorite]
+                    }`}
+                  >
                     <div className={styles.missionIcon}>
                       <MissionIcon />
                     </div>
@@ -905,7 +954,8 @@ const StagiaireDashboard = () => {
                 <HiSearch />
               </div>
               <p className={styles.noMissionsText}>
-                Aucune mission en cours. Profitez pour explorer de nouvelles opportunités !
+                Aucune mission en cours. Profitez pour explorer de nouvelles
+                opportunités !
               </p>
             </div>
           )}
@@ -915,32 +965,80 @@ const StagiaireDashboard = () => {
               <HiLightBulb className={styles.actionsTitleIcon} />
               Actions rapides
             </h4>
-            
+
             <div className={styles.actionsList}>
-              <Link to="/offres" className={`${styles.actionLink} ${styles.primary}`}>
+              <Link
+                to="/offres"
+                className={`${styles.actionLink} ${styles.primary}`}
+              >
                 <HiSearch className={styles.actionIcon} />
                 <span>Explorer les offres</span>
                 <HiChevronRight className={styles.actionArrow} />
               </Link>
-              
-              <Link to="/mes-candidatures" className={`${styles.actionLink} ${styles.info}`}>
+
+              <Link
+                to="/mes-candidatures"
+                className={`${styles.actionLink} ${styles.info}`}
+              >
                 <HiEye className={styles.actionIcon} />
                 <span>Mes candidatures</span>
                 <HiChevronRight className={styles.actionArrow} />
               </Link>
-              
-              <Link to="/mes-stages" className={`${styles.actionLink} ${styles.success}`}>
+
+              <Link
+                to="/mes-stages"
+                className={`${styles.actionLink} ${styles.success}`}
+              >
                 <HiChartBar className={styles.actionIcon} />
                 <span>Mes stages</span>
                 <HiChevronRight className={styles.actionArrow} />
               </Link>
-              
-              <Link to="/evaluations" className={`${styles.actionLink} ${styles.warning}`}>
+
+              <Link
+                to="/evaluations"
+                className={`${styles.actionLink} ${styles.warning}`}
+              >
                 <HiStar className={styles.actionIcon} />
                 <span>Mes évaluations</span>
                 <HiChevronRight className={styles.actionArrow} />
               </Link>
+              <Link
+                to="/recommendations"
+                className={`${styles.actionLink} ${styles.purple}`}
+              >
+                <HiStar className={styles.actionIcon} />
+                <span>Recommandations</span>
+                <HiChevronRight className={styles.actionArrow} />
+              </Link>
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 🆕 NOUVELLE SECTION - Widgets Recommandations et Insights */}
+      <div className={styles.widgetsSection}>
+        <div className={styles.widgetsSectionHeader}>
+          <div className={styles.sectionHeaderIcon}>
+            <HiSparkles />
+          </div>
+          <div className={styles.sectionHeaderText}>
+            <h2 className={styles.sectionTitle}>Recommandations & Insights</h2>
+            <p className={styles.sectionSubtitle}>
+              Découvrez les opportunités personnalisées et les tendances du
+              marché
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.widgetsGrid}>
+          {/* Widget Recommandations */}
+          <div className={styles.widgetWrapper}>
+            <RecommendationsWidget />
+          </div>
+
+          {/* Widget Insights Marché */}
+          <div className={styles.widgetWrapper}>
+            <MarketInsightsWidget />
           </div>
         </div>
       </div>

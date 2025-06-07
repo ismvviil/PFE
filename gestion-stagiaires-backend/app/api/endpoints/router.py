@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.endpoints import auth, users,entreprises, offres , candidatures, conversations, messages , stages ,missions , contact , upload,admin
+from app.api.endpoints import auth, users,entreprises, offres , candidatures, conversations, messages , stages ,missions , contact , upload,admin, stagiaires
 from app.api.endpoints.evaluations import router as evaluations_router
 
 api_router = APIRouter()
@@ -21,6 +21,8 @@ api_router.include_router(contact.router, prefix="/contact", tags=["contact"])
 api_router.include_router(upload.router, prefix="/upload", tags=["upload"])  # ← Ajout
 
 api_router.include_router(admin.router, prefix="/admin", tags=["admin"])
+
+api_router.include_router(stagiaires.router, prefix="/stagiaires", tags=["stagiaires"])
 
 
 @api_router.get("/health-check")

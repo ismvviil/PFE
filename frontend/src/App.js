@@ -47,9 +47,11 @@ import Contact from "./components/contact/Contact.jsx";
 import AdminLayout from "./components/admin/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard.jsx";
 import AdminRoute from "./components/common/AdminRoute.jsx";
-import AdminUsers from './pages/admin/AdminUsers';
-import AdminEnterprises from './pages/admin/AdminEnterprises';
-import AdminAnalytics from './pages/admin/AdminAnalytics';
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminEnterprises from "./pages/admin/AdminEnterprises";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import StagiaireProfile from "./pages/StagiaireProfile.jsx";
+import RecommendationsPage from "./pages/RecommendationsPage.jsx";
 
 function App() {
   return (
@@ -64,26 +66,20 @@ function App() {
               element={<CertificateVerification />}
             />
             {/* 🆕 ROUTES ADMIN - VERSION CORRIGÉE */}
-             <Route
-                      path="/admin"
-                      element={
-                        <AdminRoute>
-                          <AdminLayout />
-                        </AdminRoute>
-                      }
-                    >
-                      <Route path="dashboard" element={<AdminDashboard />} />
-                      <Route path="users" element={<AdminUsers />} />
-                      <Route
-                        path="enterprises"
-                        element={<AdminEnterprises />}
-                      />
-                      <Route path="analytics" element={<AdminAnalytics />} />
-                      <Route
-                        index
-                        element={<Navigate to="dashboard" replace />}
-                      />
-                    </Route>
+            <Route
+              path="/admin"
+              element={
+                <AdminRoute>
+                  <AdminLayout />
+                </AdminRoute>
+              }
+            >
+              <Route path="dashboard" element={<AdminDashboard />} />
+              <Route path="users" element={<AdminUsers />} />
+              <Route path="enterprises" element={<AdminEnterprises />} />
+              <Route path="analytics" element={<AdminAnalytics />} />
+              <Route index element={<Navigate to="dashboard" replace />} />
+            </Route>
 
             {/* 🔥 ROUTES AVEC MAINLAYOUT (avec navbar) */}
             <Route
@@ -110,8 +106,6 @@ function App() {
 
                     {/* 🆕 NOUVELLE ROUTE CONTACT - Accessible à tous */}
                     <Route path="/contact" element={<Contact />} />
-
-                   
 
                     {/* Routes protégées pour les recruteurs */}
                     <Route
@@ -156,6 +150,23 @@ function App() {
                     />
 
                     {/* Routes protégées pour les stagiaires */}
+
+                    <Route
+                      path="/profile"
+                      element={
+                        <StagiaireRoute>
+                          <StagiaireProfile />
+                        </StagiaireRoute>
+                      }
+                    />
+                     <Route
+                      path="/recommendations"
+                      element={
+                        <StagiaireRoute>
+                          <RecommendationsPage />
+                        </StagiaireRoute>
+                      }
+                    />
                     <Route
                       path="/offres/:offreId/postuler"
                       element={

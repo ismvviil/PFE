@@ -306,7 +306,7 @@ import {
   HiX,
   HiDotsHorizontal,
   HiOfficeBuilding,
-  HiChartBar
+  HiChartBar,
 } from "react-icons/hi";
 
 // const Sidebar = () => {
@@ -647,9 +647,8 @@ const Sidebar = () => {
 
   const { unreadCount } = useConversations();
 
-    // const [avatarError, setAvatarError] = useState(false);
+  // const [avatarError, setAvatarError] = useState(false);
 
-    
   // Fonction pour construire l'URL complète de la photo
   // Dans votre Sidebar.jsx
   const getPhotoUrl = (photoPath) => {
@@ -746,7 +745,7 @@ const Sidebar = () => {
           path: "/admin/dashboard",
           icon: HiOutlineChartSquareBar,
           label: "Tableau de Bord",
-        },
+        }
         // { path: "/admin/users", icon: HiUsers, label: "Gestion Utilisateurs" },
         // {
         //   path: "/admin/enterprises",
@@ -808,6 +807,11 @@ const Sidebar = () => {
           path: "/mes-candidatures",
           icon: HiClipboardList,
           label: "Mes Candidatures",
+        },
+        {
+          path: "/recommendations",
+          icon: HiStar,
+          label: "Recommandations",
         },
         {
           path: "/mes-stages",

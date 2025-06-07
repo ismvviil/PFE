@@ -1038,3 +1038,57 @@
     text-align: center;
   }
 }
+
+
+/* Widgets Section */
+.widgetsSection {
+  margin: 2rem 0;
+}
+
+.widgetsSectionHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.sectionHeaderIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.sectionHeaderText h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.sectionHeaderText p {
+  margin: 0.25rem 0 0 0;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+.widgetsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.widgetWrapper {
+  min-height: 400px;
+}
+
+/* Actions rapides - nouvelle couleur purple */
+.actionLink.purple {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a855f7 100%);
+  color: white;
+}
