@@ -1,4 +1,4 @@
-# 🚀 StageFacile - Plateforme Intelligente de Gestion des Stagiaires
+# 🚀 StageFacile - Plateforme Intelligente de suivi et recrutement des Stagiaires
 
 Une solution complète et moderne pour la gestion des stages en entreprise, intégrant l'intelligence artificielle pour optimiser le processus de recrutement et de suivi des stagiaires.
 
